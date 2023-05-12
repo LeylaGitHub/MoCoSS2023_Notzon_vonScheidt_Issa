@@ -21,9 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.unimon.R
+
 
 
 val imageModifier = Modifier.size(300.dp)
@@ -37,7 +36,9 @@ val ButtonModifier = Modifier
 
 
 @Composable
-fun TitleScreen(navController: NavController) {
+fun TitleScreen(
+    navigateToHome: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = ColumnModifier,
@@ -59,9 +60,8 @@ fun TitleScreen(navController: NavController) {
 
         Box(modifier = Modifier.padding(0.dp, 50.dp)) {
             Button(
-                onClick = {
-                    navController.navigate("HomeScreen")
-                }, modifier = ButtonModifier,
+                onClick = navigateToHome,
+                modifier = ButtonModifier,
                 colors = ButtonDefaults.buttonColors(Color.Black),
                 shape = RoundedCornerShape(20.dp)
             ) {
@@ -74,8 +74,8 @@ fun TitleScreen(navController: NavController) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun TitleScreenPreview() {
-    TitleScreen(rememberNavController())
+fun DefaultPreview() {
+    TitleScreen {}
 }
