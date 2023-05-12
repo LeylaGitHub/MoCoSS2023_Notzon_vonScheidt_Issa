@@ -52,12 +52,12 @@ fun HomeScreen(navController: NavController) {
         Alignment.Center
       ){
         Image(
-          painterResource(R.mipmap.unimon_background_home),
-          "unimon_background_home",
+          painterResource(R.drawable.unimon___home),
+          "unimon___home",
           Modifier.size(500.dp).scale(2.8f).offset(y = 20.dp)
         )
         Image(
-          painterResource(R.mipmap.unimon_standard),
+          painterResource(R.drawable.unimon_standard),
           "unimon_standard",
           Modifier.size(500.dp).scale(1.5f).offset(y = 80.dp)
         )
@@ -95,7 +95,7 @@ fun HomeScreen(navController: NavController) {
           color = Color.Transparent
         ) {
           Image(
-            painterResource(R.mipmap.geist_icon),
+            painterResource(R.drawable.geist_icon),
             "geist_icon",
             Modifier.scale(1.5f)
           )
