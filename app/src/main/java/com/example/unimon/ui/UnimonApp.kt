@@ -15,12 +15,18 @@ fun UnimonApp(){
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "TitleScreen"){
+
+    NavHost(
+        navController = navController,
+        startDestination = "TitleScreen"
+    ){
         composable("TitleScreen"){
-            TitleScreen(navController = navController)
+            TitleScreen(
+                navigateToHome = { navController.navigate("HomeScreen") }
+            )
         }
         composable("HomeScreen"){
-            HomeScreen(navController = navController)
+            HomeScreen()
         }
     }
 }

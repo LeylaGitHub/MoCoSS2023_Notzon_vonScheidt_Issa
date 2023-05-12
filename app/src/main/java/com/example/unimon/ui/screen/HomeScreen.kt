@@ -1,6 +1,5 @@
 package com.example.unimon.ui.screen
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
@@ -29,11 +27,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
-import androidx.navigation.NavController
+import androidx.compose.ui.tooling.preview.Preview
 
-//@Preview
+@Preview
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen() {
   Column(modifier = Modifier.fillMaxSize()) {
     Stats()
     ImageContainer(
@@ -68,7 +66,10 @@ fun ImageContainer(modifier: Modifier = Modifier) {
     Image(
       painterResource(R.drawable.unimon_standard),
       "unimon_standard",
-      Modifier.size(425.dp).scale(1.5f).offset(y = 80.dp)
+      Modifier
+        .size(425.dp)
+        .scale(1.5f)
+        .offset(y = 80.dp)
     )
   }
 }
@@ -82,110 +83,26 @@ fun BottomRow() {
     Arrangement.SpaceEvenly,
     Alignment.Bottom
   ) {
-      Surface(
-        Modifier
-          .width(70.dp)
-          .height(70.dp),
-        border = BorderStroke(2.dp, Color.Black),
-        shape = CircleShape,
-        color = Color.Transparent
-      ){
-        Text(text = "Körper",
-          Modifier
-            .padding(10.dp)
-            .align(Alignment.CenterVertically),
-          textAlign = TextAlign.Center,
-          fontSize = 15.sp,
-          fontWeight = Bold
-        )
-      }
-      Surface(
-        Modifier
-          .width(70.dp)
-          .height(70.dp),
-        shape = CircleShape,
-        color = Color.Transparent
-      ){
-        Image(
-          painterResource(R.drawable.geist_icon),
-          "geist_icon",
-          Modifier.scale(1.5f)
-        )
-      }
-      Surface(
-        Modifier
-          .width(70.dp)
-          .height(70.dp),
-        border = BorderStroke(2.dp, Color.Black),
-        shape = CircleShape,
-        color = Color.Transparent
-      ){
-        Text(text = "Sozial",
-          Modifier
-            .padding(10.dp)
-            .align(Alignment.CenterVertically),
-          textAlign = TextAlign.Center,
-          fontSize = 15.sp,
-          fontWeight = Bold
-        )
-      }
-      Surface(
-        Modifier
-          .width(70.dp)
-          .height(70.dp),
-        border = BorderStroke(2.dp, Color.Black),
-        shape = CircleShape,
-        color = Color.Transparent
-      ){
-        Text(text = "Schlaf",
-          Modifier
-            .padding(10.dp)
-            .align(Alignment.CenterVertically),
-          textAlign = TextAlign.Center,
-          fontSize = 15.sp,
-          fontWeight = Bold
-        )
-      }
+      NeedsIcon(R.drawable.geist_icon)
+      NeedsIcon(R.drawable.geist_icon)
+      NeedsIcon(R.drawable.geist_icon)
+      NeedsIcon(R.drawable.geist_icon)
   }
 }
 
 @Composable
-fun IconBody(){
+fun NeedsIcon(imageId: Int){
   Row() {
     Surface(
       Modifier
         .width(70.dp)
         .height(70.dp),
-      border = BorderStroke(2.dp, Color.Black),
-      shape = CircleShape,
-      color = Color.Transparent
-    ){
-      Text(text = "Körper",
-        Modifier
-          .padding(10.dp)
-          .align(Alignment.CenterVertically),
-        textAlign = TextAlign.Center,
-        fontSize = 15.sp,
-        fontWeight = Bold
-      )
-    }
-  }
-}
-
-@Composable
-fun IconMind(){
-  Row() {
-    Surface(
-      Modifier
-        .width(70.dp)
-        .height(70.dp),
-      border = BorderStroke(2.dp, Color.Black),
       shape = CircleShape,
       color = Color.Transparent
     ){
       Image(
-        painterResource(R.drawable.geist_icon),
-        "geist_icon",
+        painterResource(imageId),
+        "needs_icon",
         Modifier.scale(1.5f)
       )
     }
