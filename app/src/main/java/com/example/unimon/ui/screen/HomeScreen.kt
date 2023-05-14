@@ -36,109 +36,116 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomeScreen(
-  navigateToMenu: () -> Unit
+    navigateToMenu: () -> Unit
 ) {
-  Column(modifier = Modifier.fillMaxSize()) {
-    Stats()
-    ImageContainer(
-      Modifier.weight(1f),
-      navigateToMenu
-    )
-    BottomRow()
-  }
+    Column(modifier = Modifier.fillMaxSize()) {
+        Stats()
+        Box(modifier = Modifier.weight(1f)) {
+            ImageContainer(
+            )
+            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+                MenuButton(navigateToMenu)
+            }
+        }
+        BottomRow()
+    }
 }
 
 @Composable
 fun Stats() {
-  Column(
-    Modifier
-      .fillMaxWidth()
-      .background(Color.White)
-      .padding(20.dp)
-  ) {
-    Text("Name: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
-    Text("Level: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
-  }
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(20.dp)
+    ) {
+        Text("Name: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Level: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+    }
 }
 
 @Composable
 fun ImageContainer(
-  modifier: Modifier = Modifier,
-  navigateToMenu: () -> Unit
 ) {
-  Box(modifier = modifier) {
-    Image(
-      painterResource(R.drawable.unimon___home),
-      "unimon_background_home",
-      modifier = Modifier.fillMaxSize(),
-      contentScale = ContentScale.FillBounds
-    )
-    Image(
-      painterResource(R.drawable.unimon_standard),
-      "unimon_standard",
-      Modifier
-        .size(425.dp)
-        .scale(1.5f)
-        .offset(y = 80.dp)
-    )
-    FloatingActionButton(
-      onClick = navigateToMenu,
-      modifier = Modifier
-        .align(Alignment.BottomEnd)
-        .padding(15.dp)
-        .size(60.dp,60.dp),
-      shape = CircleShape,
-      containerColor = Color.White,
-      contentColor = Color.Black,
-      elevation = FloatingActionButtonDefaults.elevation()
-    ) {
-      Icon(
-        Icons.Outlined.Menu,
-        modifier = Modifier.size(35.dp),
-        contentDescription = "Menu_Button")
+    Box {
+        Image(
+            painterResource(R.drawable.unimon___home),
+            "unimon_background_home",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
+        )
+        Image(
+            painterResource(R.drawable.unimon_standard),
+            "unimon_standard",
+            Modifier
+                .size(425.dp)
+                .scale(1.5f)
+                .offset(y = 80.dp)
+        )
     }
-  }
+}
+
+@Composable
+fun MenuButton(
+    navigateToMenu: () -> Unit
+) {
+    FloatingActionButton(
+        onClick = navigateToMenu,
+        modifier = Modifier
+            .padding(15.dp)
+            .size(60.dp, 60.dp),
+        shape = CircleShape,
+        containerColor = Color.White,
+        contentColor = Color.Black,
+        elevation = FloatingActionButtonDefaults.elevation()
+    ) {
+        Icon(
+            Icons.Outlined.Menu,
+            modifier = Modifier.size(35.dp),
+            contentDescription = "Menu_Button"
+        )
+    }
 }
 
 @Composable
 fun BottomRow() {
-  Row(
-    Modifier
-      .fillMaxWidth()
-      .background(Color.White)
-      .padding(20.dp),
-    Arrangement.SpaceEvenly,
-    Alignment.Bottom
-  ) {
-      NeedsIcon(R.drawable.geist_icon)
-      NeedsIcon(R.drawable.geist_icon)
-      NeedsIcon(R.drawable.geist_icon)
-      NeedsIcon(R.drawable.geist_icon)
-  }
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .background(Color.White)
+            .padding(20.dp),
+        Arrangement.SpaceEvenly,
+        Alignment.Bottom
+    ) {
+        NeedsIcon(R.drawable.geist_icon)
+        NeedsIcon(R.drawable.geist_icon)
+        NeedsIcon(R.drawable.geist_icon)
+        NeedsIcon(R.drawable.geist_icon)
+    }
 }
 
 @Composable
-fun NeedsIcon(imageId: Int){
-  Row() {
-    Surface(
-      Modifier
-        .width(70.dp)
-        .height(70.dp),
-      shape = CircleShape,
-      color = Color.Transparent
-    ){
-      Image(
-        painterResource(imageId),
-        "needs_icon",
-        Modifier.scale(1.5f)
-      )
+fun NeedsIcon(imageId: Int) {
+    Row() {
+        Surface(
+            Modifier
+                .width(70.dp)
+                .height(70.dp),
+            shape = CircleShape,
+            color = Color.Transparent
+        ) {
+            Image(
+                painterResource(imageId),
+                "needs_icon",
+                Modifier.scale(1.5f)
+            )
+        }
     }
-  }
 }
 
 @Preview
 @Composable
 fun DefaultPreviewHome() {
-  HomeScreen {}
+    HomeScreen {}
 }
 

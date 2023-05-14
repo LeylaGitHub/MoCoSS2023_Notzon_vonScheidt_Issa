@@ -1,11 +1,8 @@
 package com.example.unimon.ui.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,34 +37,16 @@ fun MenuScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
     ) {
         Steps()
         Settings()
-    }
-    FloatingActionButton(
-        onClick = navigateToHome,
-        modifier = Modifier
-            .padding(15.dp)
-            .size(60.dp, 60.dp),
-        shape = CircleShape,
-        containerColor = Color.White,
-        contentColor = Color.Black,
-        elevation = FloatingActionButtonDefaults.elevation()
-    ) {
-        Icon(
-            Icons.Outlined.Menu,
-            modifier = Modifier.size(35.dp),
-            contentDescription = "Menu_Button"
-        )
+        HomeButton(navigateToHome)
     }
 }
 
 @Composable
 fun Steps() {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
     ) {
     Text(
         "Schritte: ",
@@ -83,15 +62,35 @@ fun Steps() {
 
 @Composable
 fun Settings() {
-    Row(
-        Modifier
-            .fillMaxHeight()
-            .padding(40.dp),
-        Arrangement.SpaceEvenly
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
-        MenuPoint(R.drawable.placeholder, "Light on/off havlfigipeapfbkesgae")
+        MenuPoint(R.drawable.placeholder, "Light on/off")
         MenuPoint(R.drawable.placeholder, "Meet")
         MenuPoint(R.drawable.placeholder, "Study")
+    }
+}
+
+@Composable
+fun HomeButton(
+    navigateToHome: () -> Unit
+){
+    FloatingActionButton(
+        onClick = navigateToHome,
+        modifier = Modifier
+            .padding(15.dp)
+            .size(60.dp, 60.dp),
+        shape = CircleShape,
+        containerColor = Color.White,
+        contentColor = Color.Black,
+        elevation = FloatingActionButtonDefaults.elevation()
+    ) {
+        Icon(
+            Icons.Outlined.Menu,
+            modifier = Modifier.size(35.dp),
+            contentDescription = "Menu_Button"
+        )
     }
 }
 
