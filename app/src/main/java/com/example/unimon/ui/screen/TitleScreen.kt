@@ -76,6 +76,6 @@ fun TitleScreen(
 
 @Preview
 @Composable
-fun DefaultPreview() {
+fun DefaultPreviewTitle() {
     TitleScreen {}
 }

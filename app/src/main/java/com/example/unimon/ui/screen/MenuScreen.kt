@@ -27,16 +27,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
-fun Menu(
-//    navigateToHome: () -> Unit
+fun MenuScreen(
+    navigateToHome: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -47,7 +46,7 @@ fun Menu(
         Settings()
     }
     FloatingActionButton(
-        onClick = { /*navigateToHomeScreen*/ },
+        onClick = navigateToHome,
         modifier = Modifier
             .padding(15.dp)
             .size(60.dp, 60.dp),
@@ -115,4 +114,10 @@ fun MenuPoint(imageId : Int, underlineText : String) {
             style = TextStyle(lineBreak = LineBreak.Simple)
         )
     }
+}
+
+@Preview
+@Composable
+fun DefaultPreviewMenu() {
+    MenuScreen {}
 }

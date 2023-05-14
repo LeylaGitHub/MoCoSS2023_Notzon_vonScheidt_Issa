@@ -34,15 +34,15 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
 fun HomeScreen(
-//  navigateToMenu: () -> Unit
+  navigateToMenu: () -> Unit
 ) {
   Column(modifier = Modifier.fillMaxSize()) {
     Stats()
     ImageContainer(
-      Modifier.weight(1f)
+      Modifier.weight(1f),
+      navigateToMenu
     )
     BottomRow()
   }
@@ -62,7 +62,10 @@ fun Stats() {
 }
 
 @Composable
-fun ImageContainer(modifier: Modifier = Modifier) {
+fun ImageContainer(
+  modifier: Modifier = Modifier,
+  navigateToMenu: () -> Unit
+) {
   Box(modifier = modifier) {
     Image(
       painterResource(R.drawable.unimon___home),
@@ -78,8 +81,8 @@ fun ImageContainer(modifier: Modifier = Modifier) {
         .scale(1.5f)
         .offset(y = 80.dp)
     )
-    FloatingActionButton(                 //oder FilledIconButton?
-      onClick = { /*navigateToMenu*/ },
+    FloatingActionButton(
+      onClick = navigateToMenu,
       modifier = Modifier
         .align(Alignment.BottomEnd)
         .padding(15.dp)
@@ -131,5 +134,11 @@ fun NeedsIcon(imageId: Int){
       )
     }
   }
+}
+
+@Preview
+@Composable
+fun DefaultPreviewHome() {
+  HomeScreen {}
 }
 
