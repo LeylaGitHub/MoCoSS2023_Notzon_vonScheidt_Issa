@@ -25,13 +25,20 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+//  navigateToMenu: () -> Unit
+) {
   Column(modifier = Modifier.fillMaxSize()) {
     Stats()
     ImageContainer(
@@ -71,6 +78,22 @@ fun ImageContainer(modifier: Modifier = Modifier) {
         .scale(1.5f)
         .offset(y = 80.dp)
     )
+    FloatingActionButton(                 //oder FilledIconButton?
+      onClick = { /*navigateToMenu*/ },
+      modifier = Modifier
+        .align(Alignment.BottomEnd)
+        .padding(15.dp)
+        .size(60.dp,60.dp),
+      shape = CircleShape,
+      containerColor = Color.White,
+      contentColor = Color.Black,
+      elevation = FloatingActionButtonDefaults.elevation()
+    ) {
+      Icon(
+        Icons.Outlined.Menu,
+        modifier = Modifier.size(35.dp),
+        contentDescription = "Menu_Button")
+    }
   }
 }
 
@@ -79,6 +102,7 @@ fun BottomRow() {
   Row(
     Modifier
       .fillMaxWidth()
+      .background(Color.White)
       .padding(20.dp),
     Arrangement.SpaceEvenly,
     Alignment.Bottom
