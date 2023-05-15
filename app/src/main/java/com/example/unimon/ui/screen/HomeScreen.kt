@@ -93,7 +93,7 @@ fun MenuButton(
         onClick = navigateToMenu,
         modifier = Modifier
             .padding(15.dp)
-            .size(60.dp, 60.dp),
+            .size(70.dp, 70.dp),
         shape = CircleShape,
         containerColor = Color.White,
         contentColor = Color.Black,

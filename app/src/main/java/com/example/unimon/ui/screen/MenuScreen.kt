@@ -2,8 +2,10 @@ package com.example.unimon.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -17,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,23 +35,30 @@ import androidx.compose.ui.tooling.preview.Preview
 fun MenuScreen(
     navigateToHome: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    Column(modifier = Modifier.fillMaxSize()) {
         Steps()
-        Settings()
-        HomeButton(navigateToHome)
+        Settings(navigateToHome)
+        Box(modifier = Modifier
+            .weight(1f)
+            .fillMaxSize()
+        ){
+            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+                HomeButton(navigateToHome)
+            }
+        }
     }
 }
 
 @Composable
 fun Steps() {
     Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp)
     ) {
     Text(
         "Schritte: ",
-        fontSize = 40.sp,
+        fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         color = Color.Black,
         modifier = Modifier
@@ -61,14 +69,50 @@ fun Steps() {
 }
 
 @Composable
-fun Settings() {
+fun Settings(navigateToHome: () -> Unit) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        Arrangement.Center
     ) {
-        MenuPoint(R.drawable.placeholder, "Light on/off")
-        MenuPoint(R.drawable.placeholder, "Meet")
-        MenuPoint(R.drawable.placeholder, "Study")
+        MenuPoint(R.drawable.placeholder, "Light on/off", navigateToHome)
+        MenuPoint(R.drawable.placeholder, "Meet", navigateToHome)
+        MenuPoint(R.drawable.placeholder, "Study", navigateToHome)
+    }
+}
+
+@Composable
+fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Surface(modifier = Modifier.size(90.dp,90.dp)
+        ) {
+            FloatingActionButton(
+                onClick = navigateToHome,
+                modifier = Modifier
+                    .size(90.dp, 90.dp),
+                elevation = FloatingActionButtonDefaults.elevation()
+            ) {
+                Image(
+                    painterResource(imageId),
+                    "placeholder",
+                    Modifier.size(90.dp)
+                )
+            }
+        }
+        Text(
+            text = underlineText,
+            fontSize = 20.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Clip,
+            style = TextStyle(lineBreak = LineBreak.Simple)
+        )
     }
 }
 
@@ -80,7 +124,7 @@ fun HomeButton(
         onClick = navigateToHome,
         modifier = Modifier
             .padding(15.dp)
-            .size(60.dp, 60.dp),
+            .size(70.dp, 70.dp),
         shape = CircleShape,
         containerColor = Color.White,
         contentColor = Color.Black,
@@ -90,27 +134,6 @@ fun HomeButton(
             Icons.Outlined.Menu,
             modifier = Modifier.size(35.dp),
             contentDescription = "Menu_Button"
-        )
-    }
-}
-
-@Composable
-fun MenuPoint(imageId : Int, underlineText : String) {
-    Column() {
-        Surface(modifier = Modifier.size(50.dp,50.dp)) {
-            Image(
-                painterResource(imageId),
-                "menu_point",
-                modifier = Modifier.scale(2f)
-                )
-        }
-        Text(
-            text = underlineText,
-            fontSize = 20.sp,
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Clip,
-            style = TextStyle(lineBreak = LineBreak.Simple)
         )
     }
 }
