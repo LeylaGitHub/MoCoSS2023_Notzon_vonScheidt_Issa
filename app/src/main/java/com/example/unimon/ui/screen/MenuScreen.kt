@@ -32,7 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 fun MenuScreen(
     navigateToHome: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        ) {
         Steps()
         Settings(navigateToHome)
         Box(modifier = Modifier
@@ -73,9 +75,9 @@ fun Settings(navigateToHome: () -> Unit) {
             .padding(20.dp),
         Arrangement.Center
     ) {
-        MenuPoint(R.drawable.placeholder, "Light on/off", navigateToHome)
-        MenuPoint(R.drawable.placeholder, "Meet", navigateToHome)
-        MenuPoint(R.drawable.placeholder, "Study", navigateToHome)
+        MenuPoint(R.drawable.light, "Light on/off", navigateToHome)
+        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
+        MenuPoint(R.drawable.study, "Study", navigateToHome)
     }
 }
 
@@ -87,13 +89,14 @@ fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit)
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Surface(modifier = Modifier.size(90.dp,90.dp)
+        Surface(modifier = Modifier
+            .size(90.dp,90.dp)
         ) {
             FloatingActionButton(
                 onClick = navigateToHome,
                 modifier = Modifier
                     .size(90.dp, 90.dp),
-                elevation = FloatingActionButtonDefaults.elevation()
+                containerColor = Color.White
             ) {
                 Image(
                     painterResource(imageId),
