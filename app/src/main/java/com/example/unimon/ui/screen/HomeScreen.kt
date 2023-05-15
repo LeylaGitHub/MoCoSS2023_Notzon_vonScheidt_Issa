@@ -101,7 +101,7 @@ fun MenuButton(
     ) {
         Icon(
             Icons.Outlined.Menu,
-            modifier = Modifier.size(35.dp),
+            modifier = Modifier.size(45.dp),
             contentDescription = "Menu_Button"
         )
     }

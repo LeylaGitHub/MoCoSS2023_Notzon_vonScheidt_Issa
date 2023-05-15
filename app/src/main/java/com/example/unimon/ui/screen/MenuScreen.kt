@@ -1,6 +1,7 @@
 package com.example.unimon.ui.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Surface
@@ -91,6 +93,7 @@ fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit)
     ) {
         Surface(modifier = Modifier
             .size(90.dp,90.dp)
+            .border(3.dp, Color.Black, RoundedCornerShape(15.dp))
         ) {
             FloatingActionButton(
                 onClick = navigateToHome,
@@ -101,7 +104,8 @@ fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit)
                 Image(
                     painterResource(imageId),
                     "placeholder",
-                    Modifier.size(90.dp)
+                    Modifier
+                        .size(90.dp)
                 )
             }
         }
