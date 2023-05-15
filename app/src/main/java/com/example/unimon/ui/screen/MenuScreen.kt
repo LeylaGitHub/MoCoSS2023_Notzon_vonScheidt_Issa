@@ -9,11 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -130,9 +127,9 @@ fun HomeButton(
         contentColor = Color.Black,
         elevation = FloatingActionButtonDefaults.elevation()
     ) {
-        Icon(
-            Icons.Outlined.Menu,
-            modifier = Modifier.size(35.dp),
+        Image(
+            painterResource(R.drawable.zur_ckpfeil),
+            modifier = Modifier.size(50.dp),
             contentDescription = "Menu_Button"
         )
     }
