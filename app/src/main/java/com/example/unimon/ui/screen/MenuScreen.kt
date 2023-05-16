@@ -63,7 +63,7 @@ fun Steps() {
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp, 20.dp, 100.dp)
-            .background(Color.White, RoundedCornerShape(20.dp))
+            .background(Color.White.copy(alpha = 0.85f), RoundedCornerShape(20.dp))
     ) {
     Text(
         "Schritte: ",
