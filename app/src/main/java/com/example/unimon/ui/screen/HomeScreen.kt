@@ -1,5 +1,6 @@
 package com.example.unimon.ui.screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +27,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Menu
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
@@ -101,7 +103,7 @@ fun MenuButton(
     ) {
         Icon(
             Icons.Outlined.Menu,
-            modifier = Modifier.size(35.dp),
+            modifier = Modifier.size(45.dp),
             contentDescription = "Menu_Button"
         )
     }
@@ -117,27 +119,30 @@ fun BottomRow() {
         Arrangement.SpaceEvenly,
         Alignment.Bottom
     ) {
-        NeedsIcon(R.drawable.geist_icon)
-        NeedsIcon(R.drawable.geist_icon)
-        NeedsIcon(R.drawable.geist_icon)
-        NeedsIcon(R.drawable.geist_icon)
+        NeedsIcon(R.drawable.placeholder)
+        NeedsIcon(R.drawable.placeholder)
+        NeedsIcon(R.drawable.placeholder)
+        NeedsIcon(R.drawable.placeholder)
     }
 }
 
 @Composable
 fun NeedsIcon(imageId: Int) {
     Row() {
-        Surface(
+        Button(
+            onClick = {},
             Modifier
                 .width(70.dp)
                 .height(70.dp),
             shape = CircleShape,
-            color = Color.Transparent
+            colors = ButtonDefaults.buttonColors(Color.White),
+            border = BorderStroke(4.dp, Color.Green)
         ) {
             Image(
                 painterResource(imageId),
                 "needs_icon",
-                Modifier.scale(1.5f)
+                Modifier
+                    .scale(1.5f)
             )
         }
     }
