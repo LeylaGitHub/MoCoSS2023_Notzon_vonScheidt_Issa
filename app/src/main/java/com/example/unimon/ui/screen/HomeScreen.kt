@@ -39,6 +39,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.window.Popup
 
 @Composable
@@ -154,10 +155,10 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
         }
         if (openDialog.value) {
             Box () {
-                val popupWidth = 70.dp
-                val popupHeight = 50.dp
+                val popupWidth = 60.dp
+                val popupHeight = 40.dp
                 Popup(
-                    alignment = Alignment.TopCenter,
+                    alignment = Alignment.TopCenter
                 ) {
                     Box(
                         Modifier
