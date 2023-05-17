@@ -38,16 +38,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.window.Popup
+import com.example.unimon.ui.UnimonViewModel
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun HomeScreen(
-    navigateToMenu: () -> Unit
+    navigateToMenu: () -> Unit,
+    viewModel: UnimonViewModel = viewModel()
 ) {
+    val unimon by viewModel.unimon.observeAsState()
+
     Column(modifier = Modifier.fillMaxSize()) {
-        Stats()
+        Stats(unimon?.name ?: "", unimon?.level ?: 0)
+        Button(onClick = { viewModel.levelUp() }){
+            Text("Level Up")
+        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
             )
@@ -60,15 +68,15 @@ fun HomeScreen(
 }
 
 @Composable
-fun Stats() {
+fun Stats(name: String, level: Int) {
     Column(
         Modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(20.dp)
     ) {
-        Text("Name: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
-        Text("Level: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Name: ${name}", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Level: ${level}", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
     }
 }
 
@@ -138,7 +146,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
 
     Row() {
         Button(
-            onClick = {openDialog.value = !openDialog.value},
+            onClick = { openDialog.value = !openDialog.value },
             Modifier
                 .width(70.dp)
                 .height(70.dp),
@@ -154,7 +162,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
             )
         }
         if (openDialog.value) {
-            Box () {
+            Box() {
                 val popupWidth = 60.dp
                 val popupHeight = 40.dp
                 Popup(
@@ -186,9 +194,9 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
     }
 }
 
-@Preview
-@Composable
-fun DefaultPreviewHome() {
-    HomeScreen {}
-}
+//@Preview
+//@Composable
+//fun DefaultPreviewHome() {
+//    HomeScreen {}
+//}
 
