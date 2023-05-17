@@ -21,10 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material3.Button
@@ -32,9 +34,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.window.Popup
 
 @Composable
 fun HomeScreen(
@@ -103,7 +109,7 @@ fun MenuButton(
     ) {
         Icon(
             Icons.Outlined.Menu,
-            modifier = Modifier.size(45.dp),
+            modifier = Modifier.scale(1.8f),
             contentDescription = "Menu_Button"
         )
     }
@@ -119,24 +125,26 @@ fun BottomRow() {
         Arrangement.SpaceEvenly,
         Alignment.Bottom
     ) {
-        NeedsIcon(R.drawable.placeholder)
-        NeedsIcon(R.drawable.placeholder)
-        NeedsIcon(R.drawable.placeholder)
-        NeedsIcon(R.drawable.placeholder)
+        PopUpButton(R.drawable.placeholder, "100/100", Color.Green)
+        PopUpButton(R.drawable.placeholder, "50/100", Color.Yellow)
+        PopUpButton(R.drawable.placeholder, "20/100", Color.Red)
+        PopUpButton(R.drawable.placeholder, "1/100", Color.Red)
     }
 }
 
 @Composable
-fun NeedsIcon(imageId: Int) {
+fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
+    val openDialog = remember { mutableStateOf(false) }
+
     Row() {
         Button(
-            onClick = {},
+            onClick = {openDialog.value = !openDialog.value},
             Modifier
                 .width(70.dp)
                 .height(70.dp),
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(Color.White),
-            border = BorderStroke(4.dp, Color.Green)
+            border = BorderStroke(4.dp, borderState),
         ) {
             Image(
                 painterResource(imageId),
@@ -144,6 +152,36 @@ fun NeedsIcon(imageId: Int) {
                 Modifier
                     .scale(1.5f)
             )
+        }
+        if (openDialog.value) {
+            Box () {
+                val popupWidth = 60.dp
+                val popupHeight = 40.dp
+                Popup(
+                    alignment = Alignment.TopCenter
+                ) {
+                    Box(
+                        Modifier
+                            .size(popupWidth, popupHeight)
+                            .padding(top = 10.dp)
+                            .background(Color.White, RoundedCornerShape(10.dp))
+                            .border(1.dp, color = Color.Black, RoundedCornerShape(10.dp))
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = statValue,
+                                color = Color.Black,
+                                fontSize = 12.sp
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
