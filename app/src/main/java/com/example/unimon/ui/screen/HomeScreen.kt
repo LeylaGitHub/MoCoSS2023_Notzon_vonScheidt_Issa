@@ -152,31 +152,32 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
                     .scale(1.5f)
             )
         }
-        Box () {
-            val popupWidth = 70.dp
-            val popupHeight = 50.dp
-
-            Popup(
-                alignment = Alignment.TopCenter,
-            ) {
-                Box(
-                    Modifier
-                        .size(popupWidth, popupHeight)
-                        .padding(top = 10.dp)
-                        .background(Color.White, RoundedCornerShape(10.dp))
-                        .border(1.dp, color = Color.Black, RoundedCornerShape(10.dp))
+        if (openDialog.value) {
+            Box () {
+                val popupWidth = 70.dp
+                val popupHeight = 50.dp
+                Popup(
+                    alignment = Alignment.TopCenter,
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                    Box(
+                        Modifier
+                            .size(popupWidth, popupHeight)
+                            .padding(top = 10.dp)
+                            .background(Color.White, RoundedCornerShape(10.dp))
+                            .border(1.dp, color = Color.Black, RoundedCornerShape(10.dp))
                     ) {
-                        Text(
-                            text = statValue,
-                            color = Color.Black,
-                            fontSize = 12.sp
-                        )
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Text(
+                                text = statValue,
+                                color = Color.Black,
+                                fontSize = 12.sp
+                            )
+                        }
                     }
                 }
             }
