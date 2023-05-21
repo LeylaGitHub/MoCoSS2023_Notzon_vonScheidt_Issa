@@ -9,10 +9,14 @@ import kotlinx.coroutines.flow.update
 data class Unimon(
     var name: String,
     var level: Int,
+    var body: Int,
+    var mind: Int,
+    var social: Int,
+    var sleep: Int
 )
 
 class UnimonViewModel : ViewModel() {
-    private var _unimon = MutableStateFlow(Unimon("Test", 1))
+    private var _unimon = MutableStateFlow(Unimon("Test", 1, 100, 100, 100, 100))
 
     val unimon: LiveData<Unimon> = _unimon.asLiveData()
     

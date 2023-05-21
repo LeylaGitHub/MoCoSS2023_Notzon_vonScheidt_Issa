@@ -43,6 +43,7 @@ import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.unimon.ui.Unimon
 
 @Composable
 fun HomeScreen(
@@ -53,9 +54,9 @@ fun HomeScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
         Stats(unimon?.name ?: "", unimon?.level ?: 0)
-        Button(onClick = { viewModel.levelUp() }){
-            Text("Level Up")
-        }
+//        Button(onClick = { viewModel.levelUp() }) {
+//            Text("Level Up")
+//        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
             )
@@ -63,7 +64,7 @@ fun HomeScreen(
                 MenuButton(navigateToMenu)
             }
         }
-        BottomRow()
+        BottomRow(unimon!!)
     }
 }
 
@@ -124,7 +125,7 @@ fun MenuButton(
 }
 
 @Composable
-fun BottomRow() {
+fun BottomRow(unimon: Unimon) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -133,10 +134,16 @@ fun BottomRow() {
         Arrangement.SpaceEvenly,
         Alignment.Bottom
     ) {
-        PopUpButton(R.drawable.placeholder, "100/100", Color.Green)
-        PopUpButton(R.drawable.placeholder, "50/100", Color.Yellow)
-        PopUpButton(R.drawable.placeholder, "20/100", Color.Red)
-        PopUpButton(R.drawable.placeholder, "1/100", Color.Red)
+        fun getColor(stat: Int): Color {
+            return if (stat > 70) Color.Green
+            else if (stat > 30) Color.Yellow
+            else Color.Red
+        }
+
+        PopUpButton(R.drawable.placeholder, unimon.body.toString(), getColor(unimon.body))
+        PopUpButton(R.drawable.placeholder, unimon.mind.toString(), getColor(unimon.mind))
+        PopUpButton(R.drawable.placeholder, unimon.social.toString(), getColor(unimon.social))
+        PopUpButton(R.drawable.placeholder, unimon.sleep.toString(), getColor(unimon.sleep))
     }
 }
 
