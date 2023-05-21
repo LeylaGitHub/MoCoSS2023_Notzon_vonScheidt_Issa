@@ -34,6 +34,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
@@ -42,6 +43,7 @@ import androidx.compose.ui.window.Popup
 import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.ui.Unimon
 
@@ -59,6 +61,10 @@ fun HomeScreen(
 //        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
+                homeBackground = R.drawable.unimon___home,
+                homeBackgroundContentD = "unimon_background_home",
+                unimonVersion = R.drawable.unimon_standard,
+                unimonVersionContentD = "unimon_standard"
             )
             Box(modifier = Modifier.align(Alignment.BottomEnd)) {
                 MenuButton(navigateToMenu)
@@ -76,24 +82,28 @@ fun Stats(name: String, level: Int) {
             .background(Color.White)
             .padding(20.dp)
     ) {
-        Text("Name: ${name}", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
-        Text("Level: ${level}", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Name: $name", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Level: $level", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
     }
 }
 
 @Composable
 fun ImageContainer(
+    homeBackground: Int,
+    homeBackgroundContentD: String,
+    unimonVersion: Int,
+    unimonVersionContentD: String
 ) {
     Box {
         Image(
-            painterResource(R.drawable.unimon___home),
-            "unimon_background_home",
+            painterResource(homeBackground),
+            homeBackgroundContentD,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds
         )
         Image(
-            painterResource(R.drawable.unimon_standard),
-            "unimon_standard",
+            painterResource(unimonVersion),
+            unimonVersionContentD,
             Modifier
                 .size(425.dp)
                 .scale(1.5f)

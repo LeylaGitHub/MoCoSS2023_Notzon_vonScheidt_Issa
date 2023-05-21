@@ -33,11 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+
 
 @Composable
 fun MenuScreen(
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
+    navigateToLightOutHome: () -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -45,7 +46,7 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToHome)
+        Actions(navigateToLightOutHome /*navigateToHome*/)
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -78,21 +79,21 @@ fun Steps() {
 }
 
 @Composable
-fun Actions(navigateToHome: () -> Unit) {
+fun Actions(navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
     ) {
-        MenuPoint(R.drawable.light, "Light on/off", navigateToHome)
-        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
-        MenuPoint(R.drawable.study, "Study", navigateToHome)
+        MenuPoint(R.drawable.light, "Light on/off", navigateToLightOutHome)
+//        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
+//        MenuPoint(R.drawable.study, "Study", navigateToHome)
     }
 }
 
 @Composable
-fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit) {
+fun MenuPoint(imageId: Int, underlineText: String, navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -100,11 +101,11 @@ fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit)
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = navigateToHome,
+            onClick = navigateToLightOutHome,
             modifier = Modifier
                 .size(90.dp,90.dp)
                 .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
-                .clickable(onClick = navigateToHome)
+                .clickable(onClick = navigateToLightOutHome)
                 .padding(0.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)
@@ -150,8 +151,8 @@ fun HomeButton(
     }
 }
 
-@Preview
-@Composable
-fun DefaultPreviewMenu() {
-    MenuScreen {}
-}
+//@Preview
+//@Composable
+//fun DefaultPreviewMenu() {
+//    MenuScreen {}
+//}
