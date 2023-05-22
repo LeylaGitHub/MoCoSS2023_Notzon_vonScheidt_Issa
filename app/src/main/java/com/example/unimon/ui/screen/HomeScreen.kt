@@ -1,5 +1,7 @@
 package com.example.unimon.ui.screen
 
+import android.annotation.SuppressLint
+import android.os.CountDownTimer
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,18 +38,43 @@ import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.window.Popup
+import androidx.preference.PreferenceDataStore
+import androidx.preference.SwitchPreferenceCompat
+import com.example.unimon.FireDatabase
+import com.example.unimon.PreferenceDatastore
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlin.concurrent.timer
 
 @Composable
 fun HomeScreen(
-    navigateToMenu: () -> Unit
+    navigateToMenu: () -> Unit,
+    preferenceDatastore: PreferenceDatastore
 ) {
+
+    var sleepStat = remember {100}
+    val timer = object: CountDownTimer(sleepStat.toLong() * 1000 * 60, 1000 * 60) {
+        override fun onTick(millisUntilFinished: Long) {
+            sleepStat -= 1
+        }
+
+        override fun onFinish() {
+            sleepStat = 0
+        }
+    }
+    timer.start()
+
     Column(modifier = Modifier.fillMaxSize()) {
-        Stats()
+        Stats(preferenceDatastore)
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
             )
@@ -59,15 +86,31 @@ fun HomeScreen(
     }
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Stats() {
+fun Stats(preferenceDatastore: PreferenceDatastore) {
+    val coroutineScope = rememberCoroutineScope()
+    coroutineScope.launch {
+        preferenceDatastore.setStats(com.example.unimon.Stats("Jürgen", 0, 0, 0, 0, 0))
+    }
     Column(
         Modifier
             .fillMaxWidth()
             .background(Color.White)
             .padding(20.dp)
     ) {
-        Text("Name: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        var name = ""
+        val coroutineScope = rememberCoroutineScope()
+        coroutineScope.launch {
+            try {
+            preferenceDatastore.getStats().collect { value ->
+                name = value.name
+            }
+            } catch (e: Exception) {
+                println("The flow has thrown an exception: $e")
+            }
+        }
+        Text("Name: $name", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
         Text("Level: ", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
     }
 }
@@ -125,7 +168,7 @@ fun BottomRow() {
         Arrangement.SpaceEvenly,
         Alignment.Bottom
     ) {
-        PopUpButton(R.drawable.placeholder, "100/100", Color.Green)
+        PopUpButton(R.drawable.placeholder, "sleepStat" + "/100", Color.Green)
         PopUpButton(R.drawable.placeholder, "50/100", Color.Yellow)
         PopUpButton(R.drawable.placeholder, "20/100", Color.Red)
         PopUpButton(R.drawable.placeholder, "1/100", Color.Red)
@@ -189,6 +232,6 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
 @Preview
 @Composable
 fun DefaultPreviewHome() {
-    HomeScreen {}
+//    HomeScreen {}
 }
 

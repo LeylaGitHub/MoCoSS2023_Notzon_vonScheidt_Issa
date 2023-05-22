@@ -17,6 +17,7 @@ import com.example.unimon.ui.theme.TestTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var preferenceDatastore = PreferenceDatastore(this)
         setContent {
             TestTheme {
                 // A surface container using the 'background' color from the theme
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    UnimonApp()
+                    UnimonApp(preferenceDatastore)
                 }
             }
         }
@@ -34,5 +35,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun DefaultPreview() {
-    UnimonApp()
+//    UnimonApp()
 }
