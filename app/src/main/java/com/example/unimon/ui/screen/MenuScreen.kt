@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
+import com.example.unimon.MainActivity
 
 
 @Composable
@@ -59,7 +60,8 @@ fun MenuScreen(
 }
 
 @Composable
-fun Steps() {
+fun Steps(){
+    var takenSteps = 0
     Column(
         Modifier
             .fillMaxWidth()
@@ -67,7 +69,7 @@ fun Steps() {
             .background(Color.White.copy(alpha = 0.85f), RoundedCornerShape(20.dp))
     ) {
     Text(
-        "Schritte: ",
+        "Schritte: $takenSteps",
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         color = Color.Black,
@@ -75,7 +77,7 @@ fun Steps() {
             .align(Alignment.Start)
             .padding(15.dp)
     )
-}
+    }
 }
 
 @Composable
@@ -87,8 +89,8 @@ fun Actions(navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
         Arrangement.Center
     ) {
         MenuPoint(R.drawable.light, "Light on/off", navigateToLightOutHome)
-//        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
-//        MenuPoint(R.drawable.study, "Study", navigateToHome)
+        MenuPoint(R.drawable.meet, "Meet", navigateToLightOutHome /*navigateToHome*/)
+        MenuPoint(R.drawable.study, "Study", navigateToLightOutHome /*navigateToHome*/)
     }
 }
 
