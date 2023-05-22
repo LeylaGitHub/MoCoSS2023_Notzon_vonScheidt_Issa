@@ -1,5 +1,6 @@
 package com.example.unimon.ui.screen
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -43,7 +44,13 @@ import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import com.example.unimon.ui.StatWorker
 import com.example.unimon.ui.Unimon
+import java.util.Date
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun HomeScreen(
@@ -140,15 +147,15 @@ fun BottomRow(unimon: Unimon) {
             else Color.Red
         }
 
-        PopUpButton(R.drawable.placeholder, unimon.body.toString(), getColor(unimon.body))
-        PopUpButton(R.drawable.placeholder, unimon.mind.toString(), getColor(unimon.mind))
-        PopUpButton(R.drawable.placeholder, unimon.social.toString(), getColor(unimon.social))
-        PopUpButton(R.drawable.placeholder, unimon.sleep.toString(), getColor(unimon.sleep))
+        PopUpButton(R.drawable.placeholder, unimon.sleep.toString(), getColor(unimon.body), unimon)
+        PopUpButton(R.drawable.placeholder, unimon.mind.toString(), getColor(unimon.mind), unimon)
+        PopUpButton(R.drawable.placeholder, unimon.social.toString(), getColor(unimon.social), unimon)
+        PopUpButton(R.drawable.placeholder, unimon.sleep.toString(), getColor(unimon.sleep), unimon)
     }
 }
 
 @Composable
-fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
+fun PopUpButton(imageId: Int, statValue: String, borderState: Color, unimon: Unimon) {
     val openDialog = remember { mutableStateOf(false) }
 
     Row() {
@@ -189,7 +196,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = statValue,
+                                text = ((Date().time - unimon.sleepTimeStamp.time) / 1000).toString(),
                                 color = Color.Black,
                                 fontSize = 12.sp
                             )
