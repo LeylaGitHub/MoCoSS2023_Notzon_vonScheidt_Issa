@@ -19,6 +19,10 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -33,11 +37,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.unimon.ui.UnimonViewModel
 
 
 @Composable
 fun MenuScreen(
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
+    viewModel: UnimonViewModel = viewModel()
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -45,7 +52,8 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToHome)
+        Actions(navigateToHome) { viewModel.changeBackground(buttonState = true) }
+
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -78,21 +86,22 @@ fun Steps() {
 }
 
 @Composable
-fun Actions(navigateToHome: () -> Unit) {
+fun Actions(navigateToHome: () -> Unit, action:  () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
-    ) {
-        MenuPoint(R.drawable.light, "Light on/off", navigateToHome)
-        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
-        MenuPoint(R.drawable.study, "Study", navigateToHome)
+    ) { //state des Buttons in Variable speichern
+        MenuPoint(R.drawable.light, "Light on/off", navigateToHome, action)
+        MenuPoint(R.drawable.meet, "Meet", navigateToHome, action)
+        MenuPoint(R.drawable.study, "Study", navigateToHome, action)
     }
 }
 
 @Composable
-fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit) {
+fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit, action: () -> Unit) {
+    var buttonState by rememberSaveable {(mutableStateOf(false))}
     Column(
         Modifier
             .fillMaxWidth()
@@ -100,11 +109,11 @@ fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = navigateToHome,
+            onClick = {navigateToHome(); action()},
             modifier = Modifier
                 .size(90.dp,90.dp)
                 .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
-                .clickable(onClick = navigateToHome)
+//                .clickable { navigateToHome() }
                 .padding(0.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)

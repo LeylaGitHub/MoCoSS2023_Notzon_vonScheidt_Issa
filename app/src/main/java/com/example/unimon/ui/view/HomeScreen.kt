@@ -44,7 +44,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.ui.Unimon
-import com.example.unimon.ui.viewmodel.BackgroundViewModel
 
 @Composable
 fun HomeScreen(
@@ -52,6 +51,7 @@ fun HomeScreen(
     viewModel: UnimonViewModel = viewModel()
 ) {
     val unimon by viewModel.unimon.observeAsState()
+    val background by viewModel.background.observeAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
         Stats(unimon?.name ?: "", unimon?.level ?: 0)
@@ -60,9 +60,9 @@ fun HomeScreen(
 //        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
-                homeBackground = R.drawable.unimon___home,
+                homeBackground = background?.homeBackground ?: R.drawable.unimon___home,
                 homeBackgroundContentD = "unimon_background_home",
-                unimonVersion = R.drawable.unimon_standard,
+                unimonVersion = background?.unimonVersion ?: R.drawable.unimon_standard,
                 unimonVersionContentD = "unimon_standard"
             )
             Box(modifier = Modifier.align(Alignment.BottomEnd)) {
@@ -87,7 +87,7 @@ fun Stats(name: String, level: Int) {
 }
 
 @Composable
-fun ImageContainer(     //if anweisung um zwischen den 2 homescreens zu wechseln, zustand des buttons in variable speichern
+fun ImageContainer(
     homeBackground: Int,
     homeBackgroundContentD: String,
     unimonVersion: Int,
