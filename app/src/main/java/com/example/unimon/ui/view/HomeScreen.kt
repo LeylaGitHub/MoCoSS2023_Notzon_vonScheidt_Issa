@@ -43,7 +43,7 @@ import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.unimon.ui.Unimon
+import com.example.unimon.ui.model.Unimon
 
 @Composable
 fun HomeScreen(
@@ -54,7 +54,7 @@ fun HomeScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
         Stats(unimon?.name ?: "", unimon?.level ?: 0)
-//        Button(onClick = { viewModel.levelUp() }) {
+//        Button(onClick = { viewModel.unimon.value?.levelUp() }) {
 //            Text("Level Up")
 //        }
         Box(modifier = Modifier.weight(1f)) {
