@@ -1,4 +1,4 @@
-package com.example.unimon.ui.screen
+package com.example.unimon.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

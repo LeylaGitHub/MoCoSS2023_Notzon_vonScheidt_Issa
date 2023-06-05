@@ -4,10 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.unimon.ui.screen.HomeScreen
-import com.example.unimon.ui.screen.MenuScreen
-import com.example.unimon.ui.screen.TitleScreen
-import com.example.unimon.ui.screen.LightOutHomeScreen
+import com.example.unimon.ui.view.HomeScreen
+import com.example.unimon.ui.view.MenuScreen
+import com.example.unimon.ui.view.TitleScreen
 
 @Composable
 fun UnimonApp(){
@@ -34,13 +33,7 @@ fun Navigation(){
         }
         composable("MenuScreen") {
             MenuScreen(
-                navigateToHome = { navController.navigate("HomeScreen") },
-                navigateToLightOutHome = { navController.navigate("LightOutHomeScreen") }
-            )
-        }
-        composable("LightOutHomeScreen") {
-            LightOutHomeScreen(
-                navigateToMenu = {navController.navigate("MenuScreen")}
+                navigateToHome = { navController.navigate("HomeScreen") }
             )
         }
     }

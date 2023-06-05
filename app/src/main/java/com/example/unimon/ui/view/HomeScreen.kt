@@ -1,4 +1,4 @@
-package com.example.unimon.ui.screen
+package com.example.unimon.ui.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -34,7 +34,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
@@ -43,9 +42,9 @@ import androidx.compose.ui.window.Popup
 import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.ui.Unimon
+import com.example.unimon.ui.viewmodel.BackgroundViewModel
 
 @Composable
 fun HomeScreen(
@@ -88,11 +87,12 @@ fun Stats(name: String, level: Int) {
 }
 
 @Composable
-fun ImageContainer(
+fun ImageContainer(     //if anweisung um zwischen den 2 homescreens zu wechseln, zustand des buttons in variable speichern
     homeBackground: Int,
     homeBackgroundContentD: String,
     unimonVersion: Int,
     unimonVersionContentD: String
+
 ) {
     Box {
         Image(

@@ -1,4 +1,4 @@
-package com.example.unimon.ui.screen
+package com.example.unimon.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,8 +37,7 @@ import androidx.compose.ui.text.TextStyle
 
 @Composable
 fun MenuScreen(
-    navigateToHome: () -> Unit,
-    navigateToLightOutHome: () -> Unit
+    navigateToHome: () -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -46,7 +45,7 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToLightOutHome /*navigateToHome*/)
+        Actions(navigateToHome)
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -79,21 +78,21 @@ fun Steps() {
 }
 
 @Composable
-fun Actions(navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
+fun Actions(navigateToHome: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
     ) {
-        MenuPoint(R.drawable.light, "Light on/off", navigateToLightOutHome)
-//        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
-//        MenuPoint(R.drawable.study, "Study", navigateToHome)
+        MenuPoint(R.drawable.light, "Light on/off", navigateToHome)
+        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
+        MenuPoint(R.drawable.study, "Study", navigateToHome)
     }
 }
 
 @Composable
-fun MenuPoint(imageId: Int, underlineText: String, navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
+fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -101,11 +100,11 @@ fun MenuPoint(imageId: Int, underlineText: String, navigateToLightOutHome: () ->
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = navigateToLightOutHome,
+            onClick = navigateToHome,
             modifier = Modifier
                 .size(90.dp,90.dp)
                 .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
-                .clickable(onClick = navigateToLightOutHome)
+                .clickable(onClick = navigateToHome)
                 .padding(0.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)
