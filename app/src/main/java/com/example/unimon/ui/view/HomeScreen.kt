@@ -34,6 +34,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
@@ -41,22 +42,21 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.window.Popup
 import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.unimon.ui.model.Unimon
+import com.example.unimon.data.Unimon
 
 @Composable
 fun HomeScreen(
     navigateToMenu: () -> Unit,
     viewModel: UnimonViewModel = viewModel()
 ) {
-    val unimon by viewModel.unimon.observeAsState()
+    val unimon by viewModel.unimon.collectAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Stats(unimon?.name ?: "", unimon?.level ?: 0)
-//        Button(onClick = { viewModel.unimon.value?.levelUp() }) {
-//            Text("Level Up")
-//        }
+        Stats(unimon.name, unimon.level)
+        Button(onClick = { viewModel.levelUp() }) {
+            Text("Level Up")
+        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
             )
@@ -64,7 +64,7 @@ fun HomeScreen(
                 MenuButton(navigateToMenu)
             }
         }
-        BottomRow(unimon!!)
+        BottomRow(unimon)
     }
 }
 
