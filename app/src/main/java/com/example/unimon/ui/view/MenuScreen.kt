@@ -91,7 +91,7 @@ fun Actions(navigateToHome: () -> Unit, action:  () -> Unit) {
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
-    ) { //state des Buttons in Variable speichern
+    ) {
         MenuPoint(R.drawable.light, "Light on/off", navigateToHome, action)
         MenuPoint(R.drawable.meet, "Meet", navigateToHome, action)
         MenuPoint(R.drawable.study, "Study", navigateToHome, action)
@@ -100,7 +100,7 @@ fun Actions(navigateToHome: () -> Unit, action:  () -> Unit) {
 
 @Composable
 fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit, action: () -> Unit) {
-    var buttonState by rememberSaveable {(mutableStateOf(false))}
+//    var buttonState by rememberSaveable {(mutableStateOf(false))}
     Column(
         Modifier
             .fillMaxWidth()
