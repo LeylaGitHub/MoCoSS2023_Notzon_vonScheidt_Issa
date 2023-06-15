@@ -3,7 +3,7 @@ package com.example.unimon.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.example.unimon.ui.model.Unimon
+import com.example.unimon.data.Unimon
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class UnimonViewModel : ViewModel() {

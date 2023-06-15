@@ -34,6 +34,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
@@ -42,8 +43,10 @@ import androidx.compose.ui.window.Popup
 import com.example.unimon.ui.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.unimon.ui.model.Unimon
+import com.example.unimon.data.Unimon
+import com.example.unimon.data.getUnimonLevel
 
 @Composable
 fun HomeScreen(
@@ -51,9 +54,12 @@ fun HomeScreen(
     viewModel: UnimonViewModel = viewModel()
 ) {
     val unimon by viewModel.unimon.observeAsState()
+    val context = LocalContext.current
+    val unimonLevel = getUnimonLevel(context).collectAsState(initial =  0)
+    println(unimonLevel.value)
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Stats(unimon?.name ?: "", unimon?.level ?: 0)
+        Stats(unimon?.name ?: "", unimonLevel.value)
 //        Button(onClick = { viewModel.unimon.value?.levelUp() }) {
 //            Text("Level Up")
 //        }
