@@ -3,6 +3,14 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+
 android {
     namespace 'com.example.unimon'
     compileSdk 33
@@ -21,11 +29,11 @@ android {
         }
     }
 
-    configurations.all {
-        resolutionStrategy {
-            force("androidx.core:core-ktx:1.12.0-alpha03")
-        }
-    }
+//    configurations.all {
+//        resolutionStrategy {
+//            force("androidx.core:core-ktx:1.12.0-alpha03")
+//        }
+//    }
 
     buildTypes {
         release {
