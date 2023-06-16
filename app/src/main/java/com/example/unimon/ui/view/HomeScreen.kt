@@ -56,13 +56,12 @@ fun HomeScreen(
     val unimon by viewModel.unimon.observeAsState()
     val context = LocalContext.current
     val unimonLevel = getUnimonLevel(context).collectAsState(initial =  0)
-    println(unimonLevel.value)
 
     Column(modifier = Modifier.fillMaxSize()) {
         Stats(unimon?.name ?: "", unimonLevel.value)
-//        Button(onClick = { viewModel.unimon.value?.levelUp() }) {
-//            Text("Level Up")
-//        }
+        Button(onClick = { viewModel.levelUpUnimon(context) }) {
+            Text("Level Up")
+        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
             )
