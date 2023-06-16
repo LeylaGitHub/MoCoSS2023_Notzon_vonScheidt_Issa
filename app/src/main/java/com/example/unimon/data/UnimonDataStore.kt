@@ -21,13 +21,6 @@ fun getUnimonName(context: Context): Flow<String> {
     }
 }
 
-//suspend fun updateName(context: Context) {
-//    context.dataStore.edit { unimonData ->
-//        val currentName = unimonData[UNIMON_NAME] ?: "Koko"
-//        unimonData[UNIMON_NAME] = currentCount + 1
-//    }
-//}
-
 val UNIMON_LEVEL_KEY = "level"
 val UNIMON_LEVEL = intPreferencesKey(UNIMON_LEVEL_KEY)
 
@@ -44,17 +37,41 @@ suspend fun levelUp(context: Context) {
     }
 }
 
-val UNIMON_BODY_KEY = "level"
+val UNIMON_BODY_KEY = "body"
 val UNIMON_BODY = intPreferencesKey(UNIMON_BODY_KEY)
 
-val UNIMON_MIND_KEY = "level"
+fun getUnimonBody(context: Context): Flow<Int> {
+    return context.dataStore.data.map { unimonData ->
+        unimonData[UNIMON_BODY] ?: 100
+    }
+}
+
+val UNIMON_MIND_KEY = "mind"
 val UNIMON_MIND = intPreferencesKey(UNIMON_MIND_KEY)
 
-val UNIMON_SOCIAL_KEY = "level"
+fun getUnimonMind(context: Context): Flow<Int> {
+    return context.dataStore.data.map { unimonData ->
+        unimonData[UNIMON_MIND] ?: 100
+    }
+}
+
+val UNIMON_SOCIAL_KEY = "social"
 val UNIMON_SOCIAL = intPreferencesKey(UNIMON_SOCIAL_KEY)
 
-val UNIMON_SLEEP_KEY = "level"
+fun getUnimonSocial(context: Context): Flow<Int> {
+    return context.dataStore.data.map { unimonData ->
+        unimonData[UNIMON_SOCIAL] ?: 100
+    }
+}
+
+val UNIMON_SLEEP_KEY = "sleep"
 val UNIMON_SLEEP= intPreferencesKey(UNIMON_SLEEP_KEY)
+
+fun getUnimonSleep(context: Context): Flow<Int> {
+    return context.dataStore.data.map { unimonData ->
+        unimonData[UNIMON_SLEEP] ?: 100
+    }
+}
 
 
 

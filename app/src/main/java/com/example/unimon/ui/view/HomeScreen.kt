@@ -46,7 +46,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.data.Unimon
+import com.example.unimon.data.getUnimonBody
 import com.example.unimon.data.getUnimonLevel
+import com.example.unimon.data.getUnimonMind
+import com.example.unimon.data.getUnimonName
+import com.example.unimon.data.getUnimonSleep
+import com.example.unimon.data.getUnimonSocial
 
 @Composable
 fun HomeScreen(
@@ -56,9 +61,10 @@ fun HomeScreen(
     val unimon by viewModel.unimon.observeAsState()
     val context = LocalContext.current
     val unimonLevel = getUnimonLevel(context).collectAsState(initial =  0)
+    val unimonName = getUnimonName(context).collectAsState(initial = "Koko")
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Stats(unimon?.name ?: "", unimonLevel.value)
+        Stats(unimonName.value, unimonLevel.value)
         Button(onClick = { viewModel.levelUpUnimon(context) }) {
             Text("Level Up")
         }
@@ -144,11 +150,16 @@ fun BottomRow(unimon: Unimon) {
             else if (stat > 30) Color.Yellow
             else Color.Red
         }
+        val context = LocalContext.current
+        val unimonBody = getUnimonBody(context).collectAsState(initial =  100)
+        val unimonMind = getUnimonMind(context).collectAsState(initial =  100)
+        val unimonSocial = getUnimonSocial(context).collectAsState(initial =  100)
+        val unimonSleep = getUnimonSleep(context).collectAsState(initial =  100)
 
-        PopUpButton(R.drawable.placeholder, unimon.body.toString(), getColor(unimon.body))
-        PopUpButton(R.drawable.placeholder, unimon.mind.toString(), getColor(unimon.mind))
-        PopUpButton(R.drawable.placeholder, unimon.social.toString(), getColor(unimon.social))
-        PopUpButton(R.drawable.placeholder, unimon.sleep.toString(), getColor(unimon.sleep))
+        PopUpButton(R.drawable.placeholder, unimonBody.value.toString(), getColor(unimon.body))
+        PopUpButton(R.drawable.placeholder, unimonMind.value.toString(), getColor(unimon.mind))
+        PopUpButton(R.drawable.placeholder, unimonSocial.value.toString(), getColor(unimon.social))
+        PopUpButton(R.drawable.placeholder, unimonSleep.value.toString(), getColor(unimon.sleep))
     }
 }
 
