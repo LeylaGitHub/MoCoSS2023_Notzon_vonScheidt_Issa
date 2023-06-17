@@ -1,8 +1,8 @@
 package com.example.unimon.ui.model
 
 data class Background(
-    var homeBackground: Int,
-    var homeBackgroundContentD: String,
-    var unimonVersion: Int,
-    var unimonVersionContentD: String
+    val homeBackground: Int,
+    val homeBackgroundContentD: String,
+    val unimonVersion: Int,
+    val unimonVersionContentD: String
 )
