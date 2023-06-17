@@ -27,10 +27,10 @@ class UnimonViewModel : ViewModel() {
 
     fun changeBackground (buttonState: Boolean) {
         if (buttonState) {
-            defaultBackground.value?.homeBackground = R.drawable.unimon___nightsky
-            defaultBackground.value?.homeBackgroundContentD = "unimon_background_nightsky"
-            defaultBackground.value?.unimonVersion = R.drawable.unimon_schlaf
-            defaultBackground.value?.unimonVersionContentD = "unimon_schlaf"
+            defaultBackground.value = Background(R.drawable.unimon___nightsky,
+                             "unimon_background_nightsky",
+                                                 R.drawable.unimon_schlaf,
+                              "unimon_schlaf")
         }
     }
 }
