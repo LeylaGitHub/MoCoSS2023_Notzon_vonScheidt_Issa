@@ -18,10 +18,6 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -52,7 +48,6 @@ fun MenuScreen(
         ) {
         Steps()
         Actions(navigateToHome) { viewModel.changeBackground(buttonState = true) }
-
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -100,7 +95,6 @@ fun Actions(navigateToHome: () -> Unit, action:  () -> Unit) {
 
 @Composable
 fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit, action: () -> Unit) {
-//    var buttonState by rememberSaveable {(mutableStateOf(false))}
     Column(
         Modifier
             .fillMaxWidth()

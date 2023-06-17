@@ -42,6 +42,7 @@ import androidx.compose.ui.window.Popup
 import com.example.unimon.ui.view_model.UnimonViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.ui.model.Unimon
 
@@ -92,7 +93,6 @@ fun ImageContainer(
     homeBackgroundContentD: String,
     unimonVersion: Int,
     unimonVersionContentD: String
-
 ) {
     Box {
         Image(
@@ -111,6 +111,15 @@ fun ImageContainer(
         )
     }
 }
+
+//@Preview
+//@Composable
+//fun ImageContainer (
+//        homeBackground: Int,
+//        homeBackgroundContentD: String,
+//        unimonVersion: Int,
+//        unimonVersionContentD: String
+//) {}
 
 @Composable
 fun MenuButton(
@@ -217,3 +226,13 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
 //    HomeScreen {}
 //}
 
+//@Preview
+//@Composable
+//fun HomeScreen(
+//            navigateToMenu: () -> Unit,
+//            unimonName: String,
+//            unimonLevel: Int,
+//            unimonImgRef: Int,
+//            backgroundImgRef: Int,
+//            unimon: Unimon,
+//    ) {}
