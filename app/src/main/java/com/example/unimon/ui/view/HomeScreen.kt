@@ -53,6 +53,10 @@ fun HomeScreen(
 
     Column(modifier = Modifier.fillMaxSize()) {
         Stats(unimonName, unimonLevel)
+        Button(onClick = { viewModel.decreaseStats() }) {
+            Text("Decrease")
+        }
+
 //        Button(onClick = { viewModel.levelUpUnimon() }) {
 //            Text("Level Up")
 //        }
@@ -140,6 +144,7 @@ fun BottomRow(
             else if (stat > 30) Color.Yellow
             else Color.Red
         }
+
         val bodyStat = viewModel.unimonBody.collectAsState(initial = 0).value
         val mindStat = viewModel.unimonMind.collectAsState(initial = 0).value
         val socialStat = viewModel.unimonSocial.collectAsState(initial = 0).value
@@ -156,7 +161,7 @@ fun BottomRow(
 fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
     val openDialog = remember { mutableStateOf(false) }
 
-    Row{
+    Row {
         Button(
             onClick = { openDialog.value = !openDialog.value },
             Modifier
@@ -174,7 +179,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
             )
         }
         if (openDialog.value) {
-            Box{
+            Box {
                 val popupWidth = 60.dp
                 val popupHeight = 40.dp
                 Popup(
