@@ -1,4 +1,4 @@
-package com.example.unimon.ui.screen
+package com.example.unimon.ui.view
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -34,27 +34,30 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.window.Popup
-import com.example.unimon.ui.UnimonViewModel
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.unimon.ui.model.Unimon
+import com.example.unimon.ui.view_model.UnimonViewModel
 
 @Composable
 fun HomeScreen(
     navigateToMenu: () -> Unit,
     viewModel: UnimonViewModel = viewModel()
 ) {
-    val unimon by viewModel.unimon.observeAsState()
+    val unimonName = viewModel.unimonName.collectAsState(initial = "").value
+    val unimonLevel = viewModel.unimonLevel.collectAsState(initial = 0).value
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Stats(unimon?.name ?: "", unimon?.level ?: 0)
-//        Button(onClick = { viewModel.unimon.value?.levelUp() }) {
+        Stats(unimonName, unimonLevel)
+        Button(onClick = { viewModel.decreaseStats() }) {
+            Text("Decrease")
+        }
+
+//        Button(onClick = { viewModel.levelUpUnimon() }) {
 //            Text("Level Up")
 //        }
         Box(modifier = Modifier.weight(1f)) {
@@ -64,7 +67,7 @@ fun HomeScreen(
                 MenuButton(navigateToMenu)
             }
         }
-        BottomRow(unimon!!)
+        BottomRow()
     }
 }
 
@@ -76,8 +79,8 @@ fun Stats(name: String, level: Int) {
             .background(Color.White)
             .padding(20.dp)
     ) {
-        Text("Name: ${name}", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
-        Text("Level: ${level}", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Name: $name", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
+        Text("Level: $level", fontSize = 20.sp, fontWeight = Bold, color = Color.Black)
     }
 }
 
@@ -125,7 +128,9 @@ fun MenuButton(
 }
 
 @Composable
-fun BottomRow(unimon: Unimon) {
+fun BottomRow(
+    viewModel: UnimonViewModel = viewModel()
+) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -140,10 +145,15 @@ fun BottomRow(unimon: Unimon) {
             else Color.Red
         }
 
-        PopUpButton(R.drawable.placeholder, unimon.body.toString(), getColor(unimon.body))
-        PopUpButton(R.drawable.placeholder, unimon.mind.toString(), getColor(unimon.mind))
-        PopUpButton(R.drawable.placeholder, unimon.social.toString(), getColor(unimon.social))
-        PopUpButton(R.drawable.placeholder, unimon.sleep.toString(), getColor(unimon.sleep))
+        val bodyStat = viewModel.unimonBody.collectAsState(initial = 0).value
+        val mindStat = viewModel.unimonMind.collectAsState(initial = 0).value
+        val socialStat = viewModel.unimonSocial.collectAsState(initial = 0).value
+        val sleepStat = viewModel.unimonSleep.collectAsState(initial = 0).value
+
+        PopUpButton(R.drawable.placeholder, bodyStat.toString(), getColor(bodyStat))
+        PopUpButton(R.drawable.placeholder, mindStat.toString(), getColor(mindStat))
+        PopUpButton(R.drawable.placeholder, socialStat.toString(), getColor(socialStat))
+        PopUpButton(R.drawable.placeholder, sleepStat.toString(), getColor(sleepStat))
     }
 }
 
@@ -151,7 +161,7 @@ fun BottomRow(unimon: Unimon) {
 fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
     val openDialog = remember { mutableStateOf(false) }
 
-    Row() {
+    Row {
         Button(
             onClick = { openDialog.value = !openDialog.value },
             Modifier
@@ -169,7 +179,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
             )
         }
         if (openDialog.value) {
-            Box() {
+            Box {
                 val popupWidth = 60.dp
                 val popupHeight = 40.dp
                 Popup(
@@ -191,7 +201,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
                             Text(
                                 text = statValue,
                                 color = Color.Black,
-                                fontSize = 12.sp
+                                fontSize = 20.sp
                             )
                         }
                     }
