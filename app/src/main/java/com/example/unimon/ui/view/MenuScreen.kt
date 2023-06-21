@@ -38,8 +38,7 @@ import com.example.unimon.MainActivity
 
 @Composable
 fun MenuScreen(
-    navigateToHome: () -> Unit,
-    navigateToLightOutHome: () -> Unit
+    navigateToHome: () -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -47,7 +46,7 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToLightOutHome /*navigateToHome*/)
+        Actions(navigateToHome)
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -60,8 +59,7 @@ fun MenuScreen(
 }
 
 @Composable
-fun Steps(){
-    var takenSteps = 0
+fun Steps() {
     Column(
         Modifier
             .fillMaxWidth()
@@ -69,7 +67,7 @@ fun Steps(){
             .background(Color.White.copy(alpha = 0.85f), RoundedCornerShape(20.dp))
     ) {
     Text(
-        "Schritte: $takenSteps",
+        "Schritte: ",
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         color = Color.Black,
@@ -81,21 +79,21 @@ fun Steps(){
 }
 
 @Composable
-fun Actions(navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
+fun Actions(navigateToHome: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
     ) {
-        MenuPoint(R.drawable.light, "Light on/off", navigateToLightOutHome)
-        MenuPoint(R.drawable.meet, "Meet", navigateToLightOutHome /*navigateToHome*/)
-        MenuPoint(R.drawable.study, "Study", navigateToLightOutHome /*navigateToHome*/)
+        MenuPoint(R.drawable.light, "Light on/off", navigateToHome)
+        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
+        MenuPoint(R.drawable.study, "Study", navigateToHome)
     }
 }
 
 @Composable
-fun MenuPoint(imageId: Int, underlineText: String, navigateToLightOutHome: () -> Unit /*navigateToHome: () -> Unit*/) {
+fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -103,11 +101,11 @@ fun MenuPoint(imageId: Int, underlineText: String, navigateToLightOutHome: () ->
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
-            onClick = navigateToLightOutHome,
+            onClick = navigateToHome,
             modifier = Modifier
-                .size(90.dp,90.dp)
+                .size(90.dp, 90.dp)
                 .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
-                .clickable(onClick = navigateToLightOutHome)
+                .clickable(onClick = navigateToHome)
                 .padding(0.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)
@@ -153,8 +151,67 @@ fun HomeButton(
     }
 }
 
-//@Preview
-//@Composable
-//fun DefaultPreviewMenu() {
-//    MenuScreen {}
-//}
+@Composable
+fun DefaultMenuPoint (imageId : Int, underlineText : String) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+            onClick = {},
+            modifier = Modifier
+                .size(90.dp, 90.dp)
+                .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
+                .padding(0.dp),
+            colors = ButtonDefaults.buttonColors(Color.White),
+            shape = RoundedCornerShape(20.dp)
+        )
+        {
+            Image(
+                painterResource(imageId),
+                "placeholder",
+                Modifier
+                    .size(90.dp)
+            )
+        }
+        Text(
+            text = underlineText,
+            fontSize = 20.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Clip,
+            style = TextStyle(lineBreak = LineBreak.Simple)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun DefaultPreviewMenu() {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .paint(painterResource(R.drawable.menu), contentScale = ContentScale.FillBounds)
+        .padding(0.dp, 20.dp, 0.dp, 0.dp)
+    ) {
+        Steps()
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(20.dp, 0.dp),
+            Arrangement.Center
+        ) {
+            DefaultMenuPoint(R.drawable.light, "Light on/off")
+            DefaultMenuPoint(R.drawable.meet, "Meet")
+            DefaultMenuPoint(R.drawable.study, "Study")
+        }
+        Box(modifier = Modifier
+            .weight(1f)
+            .fillMaxSize()
+        ){
+            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+            }
+        }
+    }
+}
