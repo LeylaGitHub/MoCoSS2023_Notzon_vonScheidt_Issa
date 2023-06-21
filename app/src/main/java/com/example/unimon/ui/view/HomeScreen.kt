@@ -216,6 +216,9 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
 fun DefaultPreviewHome() {
     Column(modifier = Modifier.fillMaxSize()) {
         Stats("Default", 0)
+        Button(onClick = {}) {
+            Text("Decrease")
+        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer()
             Box(modifier = Modifier.align(Alignment.BottomEnd))
