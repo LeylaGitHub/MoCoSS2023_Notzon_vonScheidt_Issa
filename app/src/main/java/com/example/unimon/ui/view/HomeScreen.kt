@@ -39,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Popup
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.ui.view_model.UnimonViewModel
@@ -61,8 +62,7 @@ fun HomeScreen(
 //            Text("Level Up")
 //        }
         Box(modifier = Modifier.weight(1f)) {
-            ImageContainer(
-            )
+            ImageContainer()
             Box(modifier = Modifier.align(Alignment.BottomEnd)) {
                 MenuButton(navigateToMenu)
             }
@@ -150,10 +150,10 @@ fun BottomRow(
         val socialStat = viewModel.unimonSocial.collectAsState(initial = 0).value
         val sleepStat = viewModel.unimonSleep.collectAsState(initial = 0).value
 
-        PopUpButton(R.drawable.placeholder, bodyStat.toString(), getColor(bodyStat))
-        PopUpButton(R.drawable.placeholder, mindStat.toString(), getColor(mindStat))
-        PopUpButton(R.drawable.placeholder, socialStat.toString(), getColor(socialStat))
-        PopUpButton(R.drawable.placeholder, sleepStat.toString(), getColor(sleepStat))
+        PopUpButton(R.drawable.body_icon_x2, bodyStat.toString(), getColor(bodyStat))
+        PopUpButton(R.drawable.mind_icon_x2, mindStat.toString(), getColor(mindStat))
+        PopUpButton(R.drawable.social_icon_x2, socialStat.toString(), getColor(socialStat))
+        PopUpButton(R.drawable.sleep_icon_x2, sleepStat.toString(), getColor(sleepStat))
     }
 }
 
@@ -175,7 +175,7 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
                 painterResource(imageId),
                 "needs_icon",
                 Modifier
-                    .scale(1.5f)
+                    .scale(3.3f)
             )
         }
         if (openDialog.value) {
@@ -211,9 +211,16 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
     }
 }
 
-//@Preview
-//@Composable
-//fun DefaultPreviewHome() {
-//    HomeScreen {}
-//}
+@Preview
+@Composable
+fun DefaultPreviewHome() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Stats("Default", 0)
+        Box(modifier = Modifier.weight(1f)) {
+            ImageContainer()
+            Box(modifier = Modifier.align(Alignment.BottomEnd))
+        }
+        BottomRow()
+    }
+}
 
