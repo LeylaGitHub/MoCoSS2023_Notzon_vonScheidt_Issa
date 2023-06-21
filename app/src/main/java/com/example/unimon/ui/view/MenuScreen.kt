@@ -39,7 +39,7 @@ import com.example.unimon.ui.view_model.UnimonViewModel
 @Composable
 fun MenuScreen(
     navigateToHome: () -> Unit,
-    viewModel: UnimonViewModel = viewModel()
+    viewModel: UnimonViewModel
 ) {
     Column(modifier = Modifier
         .fillMaxSize()

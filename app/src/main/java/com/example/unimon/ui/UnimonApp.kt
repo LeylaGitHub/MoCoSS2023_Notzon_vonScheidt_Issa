@@ -1,12 +1,14 @@
 package com.example.unimon.ui
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.unimon.ui.view.HomeScreen
 import com.example.unimon.ui.view.MenuScreen
 import com.example.unimon.ui.view.TitleScreen
+import com.example.unimon.ui.view_model.UnimonViewModel
 
 @Composable
 fun UnimonApp(){
@@ -28,12 +30,14 @@ fun Navigation(){
         }
         composable("HomeScreen"){
             HomeScreen(
-                navigateToMenu = { navController.navigate("MenuScreen") {popUpTo("HomeScreen") }}
+                navigateToMenu = { navController.navigate("MenuScreen") {popUpTo("HomeScreen") }},
+                viewModel = viewModel()
             )
         }
         composable("MenuScreen") {
             MenuScreen(
-                navigateToHome = { navController.navigate("HomeScreen") }
+                navigateToHome = { navController.navigate("HomeScreen") },
+                viewModel = viewModel()
             )
         }
     }

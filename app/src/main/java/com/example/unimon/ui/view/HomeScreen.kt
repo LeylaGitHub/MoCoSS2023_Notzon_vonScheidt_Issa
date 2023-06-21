@@ -49,16 +49,13 @@ import com.example.unimon.ui.model.Unimon
 @Composable
 fun HomeScreen(
     navigateToMenu: () -> Unit,
-    viewModel: UnimonViewModel = viewModel()
+    viewModel: UnimonViewModel
 ) {
     val unimon by viewModel.unimon.observeAsState()
     val background by viewModel.background.observeAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
         Stats(unimon?.name ?: "", unimon?.level ?: 0)
-//        Button(onClick = { viewModel.unimon.value?.levelUp() }) {
-//            Text("Level Up")
-//        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
                 homeBackground = background?.homeBackground ?: R.drawable.unimon___home,
@@ -111,15 +108,6 @@ fun ImageContainer(
         )
     }
 }
-
-//@Preview
-//@Composable
-//fun ImageContainer (
-//        homeBackground: Int,
-//        homeBackgroundContentD: String,
-//        unimonVersion: Int,
-//        unimonVersionContentD: String
-//) {}
 
 @Composable
 fun MenuButton(
@@ -219,20 +207,3 @@ fun PopUpButton(imageId: Int, statValue: String, borderState: Color) {
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun DefaultPreviewHome() {
-//    HomeScreen {}
-//}
-
-//@Preview
-//@Composable
-//fun HomeScreen(
-//            navigateToMenu: () -> Unit,
-//            unimonName: String,
-//            unimonLevel: Int,
-//            unimonImgRef: Int,
-//            backgroundImgRef: Int,
-//            unimon: Unimon,
-//    ) {}
