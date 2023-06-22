@@ -1,4 +1,4 @@
-package com.example.unimon.ui.screen
+package com.example.unimon.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,7 +37,8 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MenuScreen(
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
+    navigateToStudy: () -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -45,7 +46,7 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToHome)
+        Actions(navigateToHome, navigateToStudy)
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -78,7 +79,10 @@ fun Steps() {
 }
 
 @Composable
-fun Actions(navigateToHome: () -> Unit) {
+fun Actions(
+    navigateToHome: () -> Unit,
+    navigateToStudy: () -> Unit
+) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -87,7 +91,7 @@ fun Actions(navigateToHome: () -> Unit) {
     ) {
         MenuPoint(R.drawable.light, "Light on/off", navigateToHome)
         MenuPoint(R.drawable.meet, "Meet", navigateToHome)
-        MenuPoint(R.drawable.study, "Study", navigateToHome)
+        MenuPoint(R.drawable.study, "Study", navigateToStudy)
     }
 }
 
