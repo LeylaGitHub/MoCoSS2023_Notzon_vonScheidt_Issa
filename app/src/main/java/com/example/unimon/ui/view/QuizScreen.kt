@@ -3,11 +3,14 @@ package com.example.unimon.ui.view
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -37,15 +40,8 @@ fun QuizScreen(
     ) {
         Question()
         AnswerList()
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxSize()
-        ) {
-            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
-                HomeButton(navigateToStudy)
-            }
-        }
+        Spacer(modifier = Modifier.weight(1f))
+        BottomNavigation(navigateToStudy)
     }
 }
 
@@ -114,6 +110,46 @@ fun Answer(
     }
 }
 
+@Composable
+fun BottomNavigation(
+    navigateToStudy: () -> Unit
+){
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        Arrangement.SpaceEvenly,
+        Alignment.Bottom
+    ) {
+        NavigationButton("Back", navigateToStudy)
+        NavigationButton("Next", navigateToStudy)
+    }
+}
+
+@Composable
+fun NavigationButton(
+    name: String,
+    navigateToStudy: () -> Unit
+){
+    Row {
+        Button(
+            onClick = navigateToStudy,
+            modifier = Modifier
+                .width(140.dp)
+                .height(70.dp)
+                .border(4.dp, Color.Black, RoundedCornerShape(20.dp)),
+            colors = ButtonDefaults.buttonColors(Color.Black),
+            shape = RoundedCornerShape(20.dp)
+        ) {
+            Text(
+                "$name",
+                color = Color.White,
+                fontSize = 30.sp
+            )
+        }
+    }
+}
+
 
 @Preview
 @Composable
@@ -135,14 +171,8 @@ fun DefaultPreviewQuiz() {
         ) {
             Question()
             AnswerList()
-//            Box(modifier = Modifier
-//                .weight(1f)
-//                .fillMaxSize()
-//            ){
-//                Box(modifier = Modifier.align(Alignment.BottomEnd)) {
-//                    HomeButton()
-//                }
-//            }
+            Spacer(modifier = Modifier.weight(1f))
+            BottomNavigation({})
         }
     }
 }
