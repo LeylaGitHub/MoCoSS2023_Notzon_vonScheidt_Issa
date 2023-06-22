@@ -41,7 +41,8 @@ fun Navigation(){
 
         composable("StudyScreen"){
             StudyScreen(
-                navigateToMenu = { navController.navigate("MenuScreen") }
+                navigateToMenu = { navController.navigate("MenuScreen") },
+                navigateToQuiz = { navController.navigate("HomeScreen") }
             )
         }
     }
