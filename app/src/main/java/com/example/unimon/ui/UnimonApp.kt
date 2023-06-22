@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.unimon.ui.view.HomeScreen
 import com.example.unimon.ui.screen.TitleScreen
 import com.example.unimon.ui.view.MenuScreen
+import com.example.unimon.ui.view.QuizScreen
 import com.example.unimon.ui.view.StudyScreen
 
 @Composable
@@ -42,7 +43,13 @@ fun Navigation(){
         composable("StudyScreen"){
             StudyScreen(
                 navigateToMenu = { navController.navigate("MenuScreen") },
-                navigateToQuiz = { navController.navigate("HomeScreen") }
+                navigateToQuiz = { navController.navigate("QuizScreen") }
+            )
+        }
+
+        composable("QuizScreen"){
+            QuizScreen(
+                navigateToStudy = { navController.navigate("StudyScreen") }
             )
         }
     }
