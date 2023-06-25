@@ -3,6 +3,8 @@ package com.example.unimon.ui.view_model
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.unimon.data.Question
+import com.example.unimon.data.QuestionDatabase
 import com.example.unimon.data.getUnimonBody
 import com.example.unimon.data.getUnimonLevel
 import com.example.unimon.data.getUnimonMind
@@ -34,7 +36,6 @@ class UnimonViewModel(application: Application) : AndroidViewModel(application) 
             updateSleep(-1, getApplication<Application>().applicationContext)
         }
     }
-
 
     fun levelUpUnimon() {
         viewModelScope.launch(Dispatchers.IO){

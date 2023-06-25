@@ -11,24 +11,24 @@ import com.example.unimon.ui.view.QuizScreen
 import com.example.unimon.ui.view.StudyScreen
 
 @Composable
-fun UnimonApp(){
+fun UnimonApp() {
     Navigation()
 }
 
 @Composable
-fun Navigation(){
+fun Navigation() {
     val navController = rememberNavController()
 
     NavHost(
         navController = navController,
         startDestination = "TitleScreen"
-    ){
-        composable("TitleScreen"){
+    ) {
+        composable("TitleScreen") {
             TitleScreen(
                 navigateToHome = { navController.navigate("HomeScreen") }
             )
         }
-        composable("HomeScreen"){
+        composable("HomeScreen") {
             HomeScreen(
                 navigateToMenu = { navController.navigate("MenuScreen") }
             )
@@ -40,16 +40,17 @@ fun Navigation(){
             )
         }
 
-        composable("StudyScreen"){
+        composable("StudyScreen") {
             StudyScreen(
                 navigateToMenu = { navController.navigate("MenuScreen") },
-                navigateToQuiz = { navController.navigate("QuizScreen") }
+                navigateToQuiz = { category: String ->  navController.navigate("QuizScreen/$category") }
             )
         }
 
-        composable("QuizScreen"){
+        composable("QuizScreen/{category}") {
             QuizScreen(
-                navigateToStudy = { navController.navigate("StudyScreen") }
+                navigateToStudy = { navController.navigate("StudyScreen") },
+                category = it.arguments!!.getString("category")!! // TODO Improve null handling?
             )
         }
     }

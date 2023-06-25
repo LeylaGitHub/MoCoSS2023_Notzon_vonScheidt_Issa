@@ -23,24 +23,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.R
+import com.example.unimon.ui.view_model.QuestionViewModel
 
 @Composable
 fun StudyScreen(
     navigateToMenu: () -> Unit,
-    navigateToQuiz: () -> Unit
+    navigateToQuiz: (category: String) -> Unit
 ) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .paint(painterResource(R.drawable.unimon_study), contentScale = ContentScale.FillBounds)
-        .padding(0.dp, 20.dp, 0.dp, 0.dp)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .paint(painterResource(R.drawable.unimon_study), contentScale = ContentScale.FillBounds)
+            .padding(0.dp, 20.dp, 0.dp, 0.dp)
     ) {
         CategoryText()
         CategoryList(navigateToQuiz)
-        Box(modifier = Modifier
-            .weight(1f)
-            .fillMaxSize()
-        ){
+        Box(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxSize()
+        ) {
             Box(modifier = Modifier.align(Alignment.BottomEnd)) {
                 HomeButton(navigateToMenu)
             }
@@ -70,16 +74,16 @@ fun CategoryText() {
 }
 
 @Composable
-fun CategoryList(navigateToQuiz: () -> Unit){
+fun CategoryList(navigateToQuiz: (category: String) -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
     ) {
-        Category(name = "Mathe", navigateToQuiz)
-        Category(name = "Softwaretechnik", navigateToQuiz)
-        Category(name = "Mobile Computing", navigateToQuiz)
+        Category(name = "Mathe") { navigateToQuiz("Mathe") }
+        Category(name = "Softwaretechnik") { navigateToQuiz("Softwaretechnik") }
+        Category(name = "Mobile Computing") { navigateToQuiz("Mobile Computing") }
     }
 }
 
@@ -88,13 +92,13 @@ fun CategoryList(navigateToQuiz: () -> Unit){
 fun Category(
     name: String,
     navigateToQuiz: () -> Unit
-){
+) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
+    ) {
         Button(
             onClick = navigateToQuiz,
             modifier = Modifier
@@ -104,7 +108,7 @@ fun Category(
                 .padding(5.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)
-        ){
+        ) {
             Text(
                 "$name",
                 fontSize = 30.sp,

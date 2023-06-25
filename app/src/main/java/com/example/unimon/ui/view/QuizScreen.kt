@@ -23,30 +23,39 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.R
+import com.example.unimon.data.Question
+import com.example.unimon.ui.view_model.QuestionViewModel
 
 @Composable
 fun QuizScreen(
-    navigateToStudy: () -> Unit
+    navigateToStudy: () -> Unit,
+    category: String,
+    viewModel: QuestionViewModel = viewModel()
 ) {
+//    viewModel.insertQuestions()
+    val question: Question = viewModel.getQuestion(category)
+    val questionText = question.question
+    val answers = listOf(question.answer1, question.answer2, question.answer3)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .paint(painterResource(R.drawable.unimon_quiz), contentScale = ContentScale.FillBounds)
             .padding(0.dp, 20.dp, 0.dp, 0.dp)
     ) {
-        Question()
-        AnswerList()
+        Question(questionText)
+        AnswerList(answers)
         Spacer(modifier = Modifier.weight(1f))
         BottomNavigation(navigateToStudy)
     }
 }
 
 @Composable
-fun Question() {
+fun Question(questionText: String) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -55,7 +64,7 @@ fun Question() {
             .border(4.dp, Color.Black, RoundedCornerShape(17.dp))
     ) {
         Text(
-            "Was ist die Anwort auf diese Frage?",
+            questionText,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
@@ -67,16 +76,16 @@ fun Question() {
 }
 
 @Composable
-fun AnswerList() {
+fun AnswerList(questionAnswers: List<String>) {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(20.dp, 0.dp),
         Arrangement.Center
     ) {
-        Answer(name = "Antwort A")
-        Answer(name = "Antwort B")
-        Answer(name = "Antwort C")
+        Answer(name = questionAnswers[0])
+        Answer(name = questionAnswers[1])
+        Answer(name = questionAnswers[2])
     }
 }
 
@@ -87,7 +96,6 @@ fun Answer(
 ) {
     Column(
         Modifier
-            //.background(Color.White)
             .fillMaxWidth()
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -97,7 +105,7 @@ fun Answer(
             modifier = Modifier
                 .fillMaxWidth()
                 .border(4.dp, Color.Black, RoundedCornerShape(20.dp)),
-                //.clickable(onClick = navigateToQuiz)
+            //.clickable(onClick = navigateToQuiz)
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)
         ) {
@@ -113,7 +121,7 @@ fun Answer(
 @Composable
 fun BottomNavigation(
     navigateToStudy: () -> Unit
-){
+) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -130,7 +138,7 @@ fun BottomNavigation(
 fun NavigationButton(
     name: String,
     navigateToStudy: () -> Unit
-){
+) {
     Row {
         Button(
             onClick = navigateToStudy,
@@ -146,33 +154,6 @@ fun NavigationButton(
                 color = Color.White,
                 fontSize = 30.sp
             )
-        }
-    }
-}
-
-
-@Preview
-@Composable
-fun DefaultPreviewQuiz() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .paint(painterResource(R.drawable.menu), contentScale = ContentScale.FillBounds)
-            .padding(0.dp, 20.dp, 0.dp, 0.dp)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .paint(
-                    painterResource(R.drawable.unimon_quiz),
-                    contentScale = ContentScale.FillBounds
-                )
-                .padding(0.dp, 20.dp, 0.dp, 0.dp)
-        ) {
-            Question()
-            AnswerList()
-            Spacer(modifier = Modifier.weight(1f))
-            BottomNavigation({})
         }
     }
 }

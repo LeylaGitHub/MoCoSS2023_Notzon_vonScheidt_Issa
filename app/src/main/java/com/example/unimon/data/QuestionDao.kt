@@ -8,12 +8,13 @@ import androidx.room.Update
 
 @Dao
 interface QuestionDao {
-    @Query("SELECT * FROM question")
-    fun getQuestion(): Question
+    @Query("SELECT * FROM question WHERE category = :category")
+    fun getQuestionByCategory(category: String): Question
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNewQuestion(data: Question)
+    @Insert
+    suspend fun insertQuestion(question: Question)
 
     @Update
     fun updateQuestion(question: Question)
 }
+// onConflict = OnConflictStrategy.REPLACE

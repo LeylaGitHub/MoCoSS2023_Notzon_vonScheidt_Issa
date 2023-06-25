@@ -4,31 +4,49 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.unimon.data.Question
+import com.example.unimon.data.QuestionDao
 import com.example.unimon.data.QuestionDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class QuestionViewModel(application: Application) : AndroidViewModel(application) {
-    val questionDao = QuestionDatabase.getInstance(application.applicationContext).QuestionDao()
+//    private val questionDao: QuestionDao
 
     fun getQuestion(category: String): Question {
-        return questionDao.getQuestionByCategory(category)
+        // Debug Questions
+
+        return when (category) {
+            "Mathe" -> questionMathe
+            "Softwaretechnik" -> questionSoftwaretechnik
+            "Mobile Computing" -> questionMoCo
+            else -> questionMathe
+        }
+
+//        return questionDao.getQuestionByCategory(category)
     }
 
-    fun insertQuestions(){
-        viewModelScope.launch(Dispatchers.IO){
-            questionDao.insertQuestion(questionMathe)
-            questionDao.insertQuestion(questionSoftwaretechnik)
-            questionDao.insertQuestion(questionMoCo)
-        }
-    }
+//    init {
+//        val database = QuestionDatabase.getInstance(application.applicationContext)
+//        questionDao = database.QuestionDao()
+//        insertQuestions()
+//    }
+
+//    fun insertQuestions() {
+//        viewModelScope.launch(Dispatchers.Default) {
+//            questionDao.insertQuestion(questionMathe)
+//            questionDao.insertQuestion(questionSoftwaretechnik)
+//            questionDao.insertQuestion(questionMoCo)
+//        }
+//    }
 
     val questionMathe = Question(
         1,
         "Mathe",
         "Wie lautet die erste binomische Formel?",
-        listOf("(a-b)^2","(a+b)^2","(a+b)(a+b)"),
-        1,
+        "(a-b)^2",
+        "(a+b)^2",
+        "(a+b)(a+b)",
+        2,
         false,
         50
     )
@@ -37,8 +55,10 @@ class QuestionViewModel(application: Application) : AndroidViewModel(application
         2,
         "Softwaretechnik",
         "Wofür steht der Begriff MOOS?",
-        listOf("Methodische Objekt-orientierte Softwareentwicklung","Mathematische Objekt-orientierte Softwareentwicklung","Methodische Objekt-orientierte Softwarespezifikation"),
-        0,
+        "Methodische Objekt-orientierte Softwareentwicklung",
+        "Mathematische Objekt-orientierte Softwareentwicklung",
+        "Methodische Objekt-orientierte Softwarespezifikation",
+        1,
         false,
         50
     )
@@ -47,8 +67,10 @@ class QuestionViewModel(application: Application) : AndroidViewModel(application
         3,
         "Mobile Computing",
         "Wofür steht der Begriff DAO?",
-        listOf("Daten Aufrufoperationen","Decimal Access Orientiation","Data Access Object"),
-        2,
+        "Daten Aufrufoperationen",
+        "Decimal Access Orientiation",
+        "Data Access Object",
+        3,
         false,
         50
     )
