@@ -3,10 +3,12 @@ package com.example.unimon.data
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.unimon.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -119,6 +121,32 @@ suspend fun updateSleep(value: Int, context: Context) {
         unimonData[UNIMON_SLEEP] = currentCount + value
     }
 }
+
+//____________________________________________________________________________
+// State of Light
+
+val LIGHT_STATE_KEY = "light"
+val LIGHT_STATE = booleanPreferencesKey(LIGHT_STATE_KEY)
+
+fun getLightState (context: Context) : Flow<Boolean?> {
+    return context.dataStore.data.map { backgroundData ->
+        backgroundData[LIGHT_STATE]
+    }
+}
+
+suspend fun updateBackground (context: Context) {
+    context.dataStore.edit { backgroundData ->
+        backgroundData[LIGHT_STATE]
+        Background(
+            R.drawable.unimon___nightsky,
+            "unimon_background_nightsky",
+            R.drawable.unimon_schlaf,
+            "unimon_schlaf"
+        )
+    }
+}
+
+//____________________________________________________________________________
 
 
 

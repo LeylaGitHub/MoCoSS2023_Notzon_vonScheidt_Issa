@@ -1,4 +1,4 @@
-package com.example.unimon.ui.model
+package com.example.unimon.data
 
 data class Background(
     val homeBackground: Int,

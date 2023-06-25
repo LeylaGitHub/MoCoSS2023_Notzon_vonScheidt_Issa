@@ -1,10 +1,9 @@
 package com.example.unimon.ui.view_model
 
-import com.example.unimon.R
-import com.example.unimon.ui.model.Background
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.unimon.data.getLightState
 import com.example.unimon.data.getUnimonBody
 import com.example.unimon.data.getUnimonLevel
 import com.example.unimon.data.getUnimonMind
@@ -12,6 +11,7 @@ import com.example.unimon.data.getUnimonName
 import com.example.unimon.data.getUnimonSleep
 import com.example.unimon.data.getUnimonSocial
 import com.example.unimon.data.levelUp
+import com.example.unimon.data.updateBackground
 import com.example.unimon.data.updateBody
 import com.example.unimon.data.updateMind
 import com.example.unimon.data.updateSleep
@@ -27,6 +27,8 @@ class UnimonViewModel(application: Application) : AndroidViewModel(application) 
     val unimonMind = getUnimonMind(getApplication<Application>().applicationContext)
     val unimonSocial = getUnimonSocial(getApplication<Application>().applicationContext)
     val unimonSleep = getUnimonSleep(getApplication<Application>().applicationContext)
+
+    val background = getLightState(getApplication<Application>().applicationContext)
 
     fun decreaseStats() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -44,15 +46,19 @@ class UnimonViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    -------------------------
-    fun changeBackground(buttonState: Boolean) {
-        if (buttonState) {
-            defaultBackground.value = Background(
-                R.drawable.unimon___nightsky,
-                "unimon_background_nightsky",
-                R.drawable.unimon_schlaf,
-                "unimon_schlaf"
-            )
+    fun changeBackground(lightButton: Boolean) {
+//        if (lightButton) {
+//            background = Background(
+//                R.drawable.unimon___nightsky,
+//                "unimon_background_nightsky",
+//                R.drawable.unimon_schlaf,
+//                "unimon_schlaf"
+//            )
+//        }
+        if (lightButton) {
+            viewModelScope.launch(Dispatchers.IO) {
+                updateBackground(getApplication<Application>().applicationContext)
+            }
         }
     }
 }

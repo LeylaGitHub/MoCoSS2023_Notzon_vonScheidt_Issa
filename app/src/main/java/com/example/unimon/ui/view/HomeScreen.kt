@@ -42,6 +42,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Popup
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.unimon.data.Background
 import com.example.unimon.ui.view_model.UnimonViewModel
 
 @Composable
@@ -49,7 +50,7 @@ fun HomeScreen(
     navigateToMenu: () -> Unit,
     viewModel: UnimonViewModel
 ) {
-    val background by viewModel.background.observeAsState()
+    val background = viewModel.background.collectAsState(initial = Background(R.drawable.unimon___home, "unimon_background_home", R.drawable.unimon_standard, "unimon_standard")).value
     val unimonName = viewModel.unimonName.collectAsState(initial = "").value
     val unimonLevel = viewModel.unimonLevel.collectAsState(initial = 0).value
 
@@ -58,16 +59,9 @@ fun HomeScreen(
         Button(onClick = { viewModel.decreaseStats() }) {
             Text("Decrease")
         }
-
-//        Button(onClick = { viewModel.levelUpUnimon() }) {
-//            Text("Level Up")
-//        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
-                homeBackground = background?.homeBackground ?: R.drawable.unimon___home,
-                homeBackgroundContentD = "unimon_background_home",
-                unimonVersion = background?.unimonVersion ?: R.drawable.unimon_standard,
-                unimonVersionContentD = "unimon_standard"
+                //values for parameters missing
             )
             Box(modifier = Modifier.align(Alignment.BottomEnd)) {
                 MenuButton(navigateToMenu)
@@ -230,7 +224,12 @@ fun DefaultPreviewHome() {
             Text("Decrease")
         }
         Box(modifier = Modifier.weight(1f)) {
-            ImageContainer()
+            ImageContainer(
+                homeBackground = R.drawable.unimon___home,
+                homeBackgroundContentD = "unimon_background_home",
+                unimonVersion = R.drawable.unimon_standard,
+                unimonVersionContentD = "unimon_standard"
+            )
             Box(modifier = Modifier.align(Alignment.BottomEnd))
         }
         BottomRow()

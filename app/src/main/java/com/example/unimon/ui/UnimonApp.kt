@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.unimon.ui.view.HomeScreen
-import com.example.unimon.ui.screen.MenuScreen
+import com.example.unimon.ui.view.MenuScreen
 import com.example.unimon.ui.view.TitleScreen
 
 @Composable

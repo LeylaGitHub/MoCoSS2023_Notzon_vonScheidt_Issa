@@ -1,9 +1,8 @@
-package com.example.unimon.ui.screen
+package com.example.unimon.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.unimon.ui.view_model.UnimonViewModel
 
 
@@ -48,7 +47,7 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToHome)
+        Actions(navigateToHome, {viewModel.changeBackground(lightButton = true)})
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -88,9 +87,9 @@ fun Actions(navigateToHome: () -> Unit, action:  () -> Unit) {
             .padding(20.dp, 0.dp),
         Arrangement.Center
     ) {
-        MenuPoint(R.drawable.light, "Light on/off", navigateToHome, action)
-        MenuPoint(R.drawable.meet, "Meet", navigateToHome, action)
-        MenuPoint(R.drawable.study, "Study", navigateToHome, action)
+        LightMenuPoint(R.drawable.light, "Light on/off", navigateToHome, action)
+        MenuPoint(R.drawable.meet, "Meet", navigateToHome)
+        MenuPoint(R.drawable.study, "Study", navigateToHome)
     }
 }
 
@@ -103,11 +102,46 @@ fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit)
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(
+            onClick = navigateToHome,
+            modifier = Modifier
+                .size(90.dp,90.dp)
+                .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
+                .padding(0.dp),
+            colors = ButtonDefaults.buttonColors(Color.White),
+            shape = RoundedCornerShape(20.dp)
+        )
+        {
+            Image(
+                painterResource(imageId),
+                "placeholder",
+                Modifier
+                    .size(90.dp)
+            )
+        }
+        Text(
+            text = underlineText,
+            fontSize = 20.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Clip,
+            style = TextStyle(lineBreak = LineBreak.Simple)
+        )
+    }
+}
+
+@Composable
+fun LightMenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit, action: () -> Unit) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
             onClick = {navigateToHome(); action()},
             modifier = Modifier
                 .size(90.dp,90.dp)
                 .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
-//                .clickable { navigateToHome() }
                 .padding(0.dp),
             colors = ButtonDefaults.buttonColors(Color.White),
             shape = RoundedCornerShape(20.dp)
