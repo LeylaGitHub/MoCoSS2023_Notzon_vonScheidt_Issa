@@ -58,7 +58,9 @@ fun getUnimonBody(context: Context): Flow<Int> {
 suspend fun updateBody(value: Int, context: Context) {
     context.dataStore.edit { unimonData ->
         val currentCount = unimonData[UNIMON_BODY] ?: 100
-        unimonData[UNIMON_BODY] = currentCount + value
+        if (currentCount + value >= 100) unimonData[UNIMON_BODY] = 100
+        else if (currentCount > 0) unimonData[UNIMON_BODY] = currentCount + value
+        else unimonData[UNIMON_BODY] = 0
     }
 }
 
@@ -77,7 +79,9 @@ fun getUnimonMind(context: Context): Flow<Int> {
 suspend fun updateMind(value: Int, context: Context) {
     context.dataStore.edit { unimonData ->
         val currentCount = unimonData[UNIMON_MIND] ?: 100
-        unimonData[UNIMON_MIND] = currentCount + value
+        if (currentCount + value >= 100) unimonData[UNIMON_MIND] = 100
+        else if (currentCount > 0) unimonData[UNIMON_MIND] = currentCount + value
+        else unimonData[UNIMON_MIND] = 0
     }
 }
 
@@ -96,7 +100,9 @@ fun getUnimonSocial(context: Context): Flow<Int> {
 suspend fun updateSocial(value: Int, context: Context) {
     context.dataStore.edit { unimonData ->
         val currentCount = unimonData[UNIMON_SOCIAL] ?: 100
-        unimonData[UNIMON_SOCIAL] = currentCount + value
+        if (currentCount + value >= 100) unimonData[UNIMON_SOCIAL] = 100
+        else if (currentCount > 0) unimonData[UNIMON_SOCIAL] = currentCount + value
+        else unimonData[UNIMON_SOCIAL] = 0
     }
 }
 
@@ -116,7 +122,9 @@ fun getUnimonSleep(context: Context): Flow<Int> {
 suspend fun updateSleep(value: Int, context: Context) {
     context.dataStore.edit { unimonData ->
         val currentCount = unimonData[UNIMON_SLEEP] ?: 100
-        unimonData[UNIMON_SLEEP] = currentCount + value
+        if (currentCount + value >= 100) unimonData[UNIMON_SLEEP] = 100
+        else if (currentCount > 0) unimonData[UNIMON_SLEEP] = currentCount + value
+        else unimonData[UNIMON_SLEEP] = 0
     }
 }
 

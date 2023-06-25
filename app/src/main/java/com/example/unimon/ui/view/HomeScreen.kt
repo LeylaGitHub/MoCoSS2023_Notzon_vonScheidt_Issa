@@ -57,6 +57,9 @@ fun HomeScreen(
         Button(onClick = { viewModel.decreaseStats() }) {
             Text("Decrease")
         }
+        Button(onClick = { viewModel.fullStats() }) {
+            Text("Full")
+        }
 
 //        Button(onClick = { viewModel.levelUpUnimon() }) {
 //            Text("Level Up")

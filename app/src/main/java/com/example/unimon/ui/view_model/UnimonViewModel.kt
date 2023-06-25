@@ -1,6 +1,9 @@
 package com.example.unimon.ui.view_model
 
 import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.unimon.data.getUnimonBody
@@ -28,13 +31,24 @@ class UnimonViewModel(application: Application) : AndroidViewModel(application) 
 
     fun decreaseStats(){
         viewModelScope.launch(Dispatchers.IO){
-            updateBody(-1, getApplication<Application>().applicationContext)
-            updateMind(-1, getApplication<Application>().applicationContext)
-            updateSocial(-1, getApplication<Application>().applicationContext)
-            updateSleep(-1, getApplication<Application>().applicationContext)
+            while (true) {
+                updateBody(-1, getApplication<Application>().applicationContext)
+                updateMind(-1, getApplication<Application>().applicationContext)
+                updateSocial(-1, getApplication<Application>().applicationContext)
+                updateSleep(-1, getApplication<Application>().applicationContext)
+                Thread.sleep(1000)
+            }
         }
     }
 
+    fun fullStats() {
+        viewModelScope.launch(Dispatchers.IO) {
+            updateBody(100, getApplication<Application>().applicationContext)
+            updateMind(100, getApplication<Application>().applicationContext)
+            updateSocial(100, getApplication<Application>().applicationContext)
+            updateSleep(100, getApplication<Application>().applicationContext)
+        }
+    }
 
     fun levelUpUnimon() {
         viewModelScope.launch(Dispatchers.IO){
