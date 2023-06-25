@@ -1,8 +1,9 @@
-package com.example.unimon.ui.view
+package com.example.unimon.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -47,7 +48,7 @@ fun MenuScreen(
         .padding(0.dp, 20.dp, 0.dp, 0.dp)
         ) {
         Steps()
-        Actions(navigateToHome) { viewModel.changeBackground(buttonState = true) }
+        Actions(navigateToHome)
         Box(modifier = Modifier
             .weight(1f)
             .fillMaxSize()
@@ -94,7 +95,7 @@ fun Actions(navigateToHome: () -> Unit, action:  () -> Unit) {
 }
 
 @Composable
-fun MenuPoint(imageId: Int, underlineText: String, navigateToHome: () -> Unit, action: () -> Unit) {
+fun MenuPoint(imageId : Int, underlineText : String, navigateToHome: () -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -152,8 +153,67 @@ fun HomeButton(
     }
 }
 
-//@Preview
-//@Composable
-//fun DefaultPreviewMenu() {
-//    MenuScreen {}
-//}
+@Composable
+fun DefaultMenuPoint (imageId : Int, underlineText : String) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+            onClick = {},
+            modifier = Modifier
+                .size(90.dp, 90.dp)
+                .border(3.dp, Color.Black, RoundedCornerShape(17.dp))
+                .padding(0.dp),
+            colors = ButtonDefaults.buttonColors(Color.White),
+            shape = RoundedCornerShape(20.dp)
+        )
+        {
+            Image(
+                painterResource(imageId),
+                "placeholder",
+                Modifier
+                    .size(90.dp)
+            )
+        }
+        Text(
+            text = underlineText,
+            fontSize = 20.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Center,
+            overflow = TextOverflow.Clip,
+            style = TextStyle(lineBreak = LineBreak.Simple)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun DefaultPreviewMenu() {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .paint(painterResource(R.drawable.menu), contentScale = ContentScale.FillBounds)
+        .padding(0.dp, 20.dp, 0.dp, 0.dp)
+    ) {
+        Steps()
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(20.dp, 0.dp),
+            Arrangement.Center
+        ) {
+            DefaultMenuPoint(R.drawable.light, "Light on/off")
+            DefaultMenuPoint(R.drawable.meet, "Meet")
+            DefaultMenuPoint(R.drawable.study, "Study")
+        }
+        Box(modifier = Modifier
+            .weight(1f)
+            .fillMaxSize()
+        ){
+            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+            }
+        }
+    }
+}
