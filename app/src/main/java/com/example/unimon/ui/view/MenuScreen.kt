@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
-import com.example.unimon.MainActivity
+import androidx.compose.ui.tooling.preview.Preview
 
 
 @Composable

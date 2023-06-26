@@ -34,7 +34,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,10 +41,6 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Popup
-import com.example.unimon.ui.UnimonViewModel
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.unimon.ui.view_model.UnimonViewModel
 
@@ -62,10 +57,6 @@ fun HomeScreen(
         Button(onClick = { viewModel.decreaseStats() }) {
             Text("Decrease")
         }
-
-//        Button(onClick = { viewModel.levelUpUnimon() }) {
-//            Text("Level Up")
-//        }
         Box(modifier = Modifier.weight(1f)) {
             ImageContainer(
                 homeBackground = R.drawable.unimon___home,
@@ -234,7 +225,12 @@ fun DefaultPreviewHome() {
             Text("Decrease")
         }
         Box(modifier = Modifier.weight(1f)) {
-            ImageContainer()
+            ImageContainer(
+                homeBackground = R.drawable.unimon___home,
+                homeBackgroundContentD = "unimon_background_home",
+                unimonVersion = R.drawable.unimon_standard,
+                unimonVersionContentD = "unimon_standard"
+            )
             Box(modifier = Modifier.align(Alignment.BottomEnd))
         }
         BottomRow()
