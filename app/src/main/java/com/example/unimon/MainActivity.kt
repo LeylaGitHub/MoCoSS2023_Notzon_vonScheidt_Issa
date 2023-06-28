@@ -1,6 +1,5 @@
 package com.example.unimon
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -19,16 +18,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.unimon.ui.UnimonApp
 import com.example.unimon.ui.theme.TestTheme
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : ComponentActivity(), SensorEventListener {
-//    private var sensorManager: SensorManager? = null
     private val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private var running: Boolean = false
 
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
+    private val stepsTaken: TextView = findViewById(androidx.core.R.id.text)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    val sdf = SimpleDateFormat("dd-mm-yyyy")
+    private var oldDate = sdf.format(Date())
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TestTheme {
@@ -42,16 +46,15 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             }
         }
 
-//        resetSteps()
-//        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        oldDate = sdf.format(Date())
+        resetSteps()
+//        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
 
     override fun onAccuracyChanged(event: Sensor?, p1: Int) {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        val stepsTaken = findViewById<TextView>(androidx.core.R.id.text)
-
             if (running) {
                 totalSteps = event!!.values[0]
                 val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
@@ -76,11 +79,15 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     override fun onPause() {
         super.onPause()
         running = false
-        sensorManager?.unregisterListener(this)
+        sensorManager.unregisterListener(this)
     }
 
-    fun resetSteps() {
-        TODO("Nimmt Uhrzeit des Systems und resetet die Schritte immer um 0 Uhr")
+    private fun resetSteps() {
+        val currentDate = sdf.format(Date())
+        val compared = currentDate.compareTo(oldDate)
+        if (compared > 0) {
+            stepsTaken.text = ("0")
+        }
     }
 }
 

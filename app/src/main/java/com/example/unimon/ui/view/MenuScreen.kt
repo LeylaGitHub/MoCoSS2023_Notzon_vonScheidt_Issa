@@ -1,5 +1,6 @@
 package com.example.unimon.ui.screen
 
+import android.hardware.Sensor
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,6 +20,8 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -34,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.example.unimon.R
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.unimon.MainActivity
 
 
 @Composable
@@ -59,7 +63,8 @@ fun MenuScreen(
 }
 
 @Composable
-fun Steps() {
+fun Steps() {       //wie übergebe ich stepsTaken an das UI und füge es unten bei "Schritte: " ein?
+//    val givenSteps = rememberSaveable{mutableStateOf(MainActivity().onSensorChanged()}
     Column(
         Modifier
             .fillMaxWidth()
@@ -67,7 +72,7 @@ fun Steps() {
             .background(Color.White.copy(alpha = 0.85f), RoundedCornerShape(20.dp))
     ) {
     Text(
-        "Schritte: ",
+        "Schritte: ", /*$givenSteps*/
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         color = Color.Black,
