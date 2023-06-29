@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workmanager xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <configuration
+        android:name="com.example.Unimon.WorkManagerConfiguration"
+        app:initial-delay="0" />
+
+</workmanager>
