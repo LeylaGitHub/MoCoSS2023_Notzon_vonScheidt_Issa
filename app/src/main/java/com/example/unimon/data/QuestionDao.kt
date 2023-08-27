@@ -11,10 +11,9 @@ interface QuestionDao {
     @Query("SELECT * FROM question WHERE category = :category")
     fun getQuestionByCategory(category: String): Question
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertQuestion(question: Question)
 
     @Update
     fun updateQuestion(question: Question)
 }
-// onConflict = OnConflictStrategy.REPLACE

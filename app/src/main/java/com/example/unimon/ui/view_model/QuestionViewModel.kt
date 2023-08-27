@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class QuestionViewModel(application: Application) : AndroidViewModel(application) {
-//    private val questionDao: QuestionDao
+    private val questionDao: QuestionDao
 
     fun getQuestion(category: String): Question {
         // Debug Questions
@@ -18,26 +18,26 @@ class QuestionViewModel(application: Application) : AndroidViewModel(application
         return when (category) {
             "Mathe" -> questionMathe
             "Softwaretechnik" -> questionSoftwaretechnik
-            "Mobile Computing" -> questionMoCo
+            "MobileComputing" -> questionMoCo
             else -> questionMathe
         }
 
 //        return questionDao.getQuestionByCategory(category)
     }
 
-//    init {
-//        val database = QuestionDatabase.getInstance(application.applicationContext)
-//        questionDao = database.QuestionDao()
-//        insertQuestions()
-//    }
+    init {
+        val database = QuestionDatabase.getInstance(application.applicationContext)
+        questionDao = database.QuestionDao()
+        //insertQuestions()
+    }
 
-//    fun insertQuestions() {
-//        viewModelScope.launch(Dispatchers.Default) {
-//            questionDao.insertQuestion(questionMathe)
-//            questionDao.insertQuestion(questionSoftwaretechnik)
-//            questionDao.insertQuestion(questionMoCo)
-//        }
-//    }
+    fun insertQuestions() {
+        viewModelScope.launch(Dispatchers.Default) {
+            questionDao.insertQuestion(questionMathe)
+            questionDao.insertQuestion(questionSoftwaretechnik)
+            questionDao.insertQuestion(questionMoCo)
+        }
+    }
 
     val questionMathe = Question(
         1,
@@ -65,7 +65,7 @@ class QuestionViewModel(application: Application) : AndroidViewModel(application
 
     val questionMoCo = Question(
         3,
-        "Mobile Computing",
+        "MobileComputing",
         "Wofür steht der Begriff DAO?",
         "Daten Aufrufoperationen",
         "Decimal Access Orientiation",

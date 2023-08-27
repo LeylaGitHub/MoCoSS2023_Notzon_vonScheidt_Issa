@@ -83,7 +83,7 @@ fun CategoryList(navigateToQuiz: (category: String) -> Unit) {
     ) {
         Category(name = "Mathe") { navigateToQuiz("Mathe") }
         Category(name = "Softwaretechnik") { navigateToQuiz("Softwaretechnik") }
-        Category(name = "Mobile Computing") { navigateToQuiz("Mobile Computing") }
+        Category(name = "Mobile Computing") { navigateToQuiz("MobileComputing") }
     }
 }
 
