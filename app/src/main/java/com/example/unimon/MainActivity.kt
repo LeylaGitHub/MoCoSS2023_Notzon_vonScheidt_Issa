@@ -22,18 +22,19 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : ComponentActivity(), SensorEventListener {
-    private val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     private var running: Boolean = false
-
     private var totalSteps = 0f
     private var previousTotalSteps = 0f
-    private val stepsTaken: TextView = findViewById(androidx.core.R.id.text)
+    private var stepsTaken: TextView = findViewById(R.id.text_view_id)
 
-    val sdf = SimpleDateFormat("dd-mm-yyyy")
+    val sdf = SimpleDateFormat("dd-mm-yyyy", Locale.GERMANY)
     private var oldDate = sdf.format(Date())
 
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+/*          setContentView(R.layout.activity_main)
+            var testText: TextView = findViewById(R.id.text_view_id)
+            testText.setText(R.string.user_greeting)*/
         setContent {
             TestTheme {
                 // A surface container using the 'background' color from the theme
@@ -46,9 +47,8 @@ class MainActivity : ComponentActivity(), SensorEventListener {
             }
         }
 
-        oldDate = sdf.format(Date())
+//        oldDate = sdf.format(Date())
         resetSteps()
-//        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
 
     override fun onAccuracyChanged(event: Sensor?, p1: Int) {
@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
                 totalSteps = event!!.values[0]
                 val currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
                 stepsTaken.text = ("$currentSteps")
+                previousTotalSteps = currentSteps.toFloat()
             }
         }
 
@@ -66,7 +67,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         super.onResume()
         running = true
 
-//        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         val stepCounterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         if (stepCounterSensor != null) {
@@ -79,6 +80,8 @@ class MainActivity : ComponentActivity(), SensorEventListener {
     override fun onPause() {
         super.onPause()
         running = false
+
+        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensorManager.unregisterListener(this)
     }
 

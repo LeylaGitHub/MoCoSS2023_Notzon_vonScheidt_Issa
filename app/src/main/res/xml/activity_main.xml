@@ -8,11 +8,11 @@
     tools:context=".MainActivity">
 
     <com.example.unimon.ui.screen.MenuScreen.Steps
-        android:id="@+id/stepDisplay"
+        android:id="@+id/action_text"
         />
     <TextView
-        android:id="@+id/stepsTaken"
-        android:text="0"
+        android:id="@+id/text_view_id"
+        android:text="@android:string/untitled"
         />
 
 </RelativeLayout>
